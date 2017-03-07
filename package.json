@@ -1,0 +1,21 @@
+{
+  "name": "discovery-bib-poster",
+  "version": "0.1.0",
+  "description": "Reads bibs from stream, posts to bib service",
+  "devDependencies": {},
+  "author": "NYPL",
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NYPL-discovery/discovery-bib-poster.git"
+  },
+  "dependencies": {
+    "avsc": "^4.1.11",
+    "config": "^1.25.1",
+    "highland": "^2.10.2",
+    "oauth": "^0.9.15",
+    "promise": "^7.1.1",
+    "request": "^2.80.0"
+  }
+}
