@@ -1,8 +1,6 @@
 console.log('Loading Discovery Bib Poster');
 
 const avro = require('avsc');
-const config = require('config');
-const _ = require('highland');
 const OAuth = require('oauth');
 const Promise = require('promise');
 const request = require('request');

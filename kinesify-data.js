@@ -7,7 +7,6 @@ const avro = require('avsc');
 const config = require('config');
 const fs = require('fs');
 const request = require('request');
-const _ = require('highland');
 
 // config
 const infile = args[0];

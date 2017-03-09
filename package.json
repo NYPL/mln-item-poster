@@ -12,8 +12,6 @@
   },
   "dependencies": {
     "avsc": "^4.1.11",
-    "config": "^1.25.1",
-    "highland": "^2.10.2",
     "oauth": "^0.9.15",
     "promise": "^7.1.1",
     "request": "^2.80.0"
