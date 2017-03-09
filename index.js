@@ -7,6 +7,9 @@ const OAuth = require('oauth');
 const Promise = require('promise');
 const request = require('request');
 
+// Initialize cache
+var CACHE = {};
+
 // kinesis stream handler
 exports.kinesisHandler = function(records, context, callback) {
   console.log('Processing ' + records.length + ' records');
@@ -18,12 +21,29 @@ exports.kinesisHandler = function(records, context, callback) {
   var data = records
     .map(parseKinesis);
 
+  // check cache for access_token
+  if (CACHE['access_token']) {
+    console.log('Already authenticated');
+    postRecords(CACHE['access_token'], data);
+
+  // access_token not in cache, request a new one
+  } else {
+    // request authorization, then post each record
+    token().then(function(access_token){
+      console.log('Successfully authenticated');
+      // save access_token to cache
+      CACHE['access_token'] = access_token;
+      postRecords(access_token, data);
+    });
+  }
+
   // oauth token retriever
   function token() {
     var OAuth2 = OAuth.OAuth2;
-    var key = config.get('nyplOauth').key;
-    var secret = config.get('nyplOauth').secret;
-    var auth = new OAuth2(key, secret, config.get('nyplOauth').url, null, 'oauth/token', null);
+    var key = process.env['NYPL_OAUTH_KEY'];
+    var secret = process.env['NYPL_OAUTH_SECRET'];
+    var url = process.env['NYPL_OAUTH_URL'];
+    var auth = new OAuth2(key, secret, url, null, 'oauth/token', null);
 
     return new Promise(function (resolve, reject) {
       auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function(e, access_token, refresh_token, results) {
@@ -31,24 +51,6 @@ exports.kinesisHandler = function(records, context, callback) {
       });
     });
   };
-
-  // request authorization, then post each record
-  token().then(function(access_token){
-    console.log('Successfully authenticated');
-    Promise.all(data.map(function(record){
-      return postRecord(access_token, record);
-    }))
-      .then(function (res) {
-        console.log(res.length + ' POST sucesses');
-        // callback(null);
-        context.succeed();
-      })
-      .catch(function (err) {
-        console.log('POST errors', err);
-        // callback(new Error(err));
-        context.done();
-      })
-  });
 
   // map to records objects as needed
   function parseKinesis(payload) {
@@ -59,27 +61,28 @@ exports.kinesisHandler = function(records, context, callback) {
     return record;
   }
 
-  // posts record to API
-  function postRecord(access_token, payload) {
+  // bulk posts records
+  function postRecords(access_token, records) {
     var options = {
-      uri: config.get('nyplApi').url,
+      uri: process.env['NYPL_API_POST_URL'],
       method: 'POST',
       headers: { Authorization: `Bearer ${access_token}` },
-      body: {
-        data: payload
-      },
+      body: records,
       json: true
     };
 
-    return new Promise(function (resolve, reject) {
-      request(options, function(error, response, body){
-        if (error) {
-          reject(error);
+    // POST request
+    request(options, function(error, response, body){
+      if (error || response.errors && response.errors.length) {
+        console.log('POST error', response.errors);
+        // callback(new Error(error));
+        context.fail();
 
-        } else {
-          resolve(response);
-        }
-      });
+      } else {
+        console.log('POST success');
+        // callback(null, "Success");
+        context.succeed();
+      }
     });
   }
 };
