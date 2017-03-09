@@ -14,46 +14,30 @@ var CACHE = {};
 exports.kinesisHandler = function(records, context, callback) {
   console.log('Processing ' + records.length + ' records');
 
-  // initialize avro schema
-  const avroType = avro.parse(config.get('schema'));
-
-  // parse kinesis records
-  var data = records
-    .map(parseKinesis);
-
-  // check cache for access_token
-  if (CACHE['access_token']) {
-    console.log('Already authenticated');
-    postRecords(CACHE['access_token'], data);
-
-  // access_token not in cache, request a new one
-  } else {
-    // request authorization, then post each record
-    token().then(function(access_token){
-      console.log('Successfully authenticated');
-      // save access_token to cache
-      CACHE['access_token'] = access_token;
-      postRecords(access_token, data);
+  // retrieve token and schema
+  Promise.all([token(), schema()])
+    .then(function (res) {
+      var access_token = res[0];
+      var schema = res[1];
+      onReady(records, access_token, schema);
     });
+
+  // run when access token and schema are loaded
+  function onReady(payload, access_token, schema) {
+    // console.log('Ready', access_token, schema);
+    // load avro schema
+    var avroType = avro.parse(schema);
+    // parse payload
+    var data = payload
+      .map(function(record){
+        return parseKinesis(record, avroType);
+      });
+    // post to API
+    postRecords(access_token, data);
   }
 
-  // oauth token retriever
-  function token() {
-    var OAuth2 = OAuth.OAuth2;
-    var key = process.env['NYPL_OAUTH_KEY'];
-    var secret = process.env['NYPL_OAUTH_SECRET'];
-    var url = process.env['NYPL_OAUTH_URL'];
-    var auth = new OAuth2(key, secret, url, null, 'oauth/token', null);
-
-    return new Promise(function (resolve, reject) {
-      auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function(e, access_token, refresh_token, results) {
-        resolve(access_token);
-      });
-    });
-  };
-
   // map to records objects as needed
-  function parseKinesis(payload) {
+  function parseKinesis(payload, avroType) {
     // decode base64
     var buf = new Buffer(payload.kinesis.data, 'base64');
     // decode avro
@@ -73,24 +57,84 @@ exports.kinesisHandler = function(records, context, callback) {
 
     // POST request
     request(options, function(error, response, body){
-      if (error || response.errors && response.errors.length) {
-        console.log('POST error', response.errors);
-        // callback(new Error(error));
-        context.fail();
+      if (error || body.errors && body.errors.length) {
+        if (error) {
+          callback(new Error(error));
+        } else {
+          callback(new Error(body.errors[0]));
+        }
+        // context.fail();
 
       } else {
-        console.log('POST success');
-        // callback(null, "Success");
-        context.succeed();
+        callback(null, "POST Success");
+        // context.succeed();
       }
+    });
+  }
+
+  function schema() {
+    // schema in cache; just return it as a instant promise
+    if (CACHE['schema']) {
+      console.log('Already have schema');
+      return new Promise(function(resolve, reject){
+        resolve(CACHE['schema']);
+      });
+    }
+
+    return new Promise(function (resolve, reject) {
+      var options = {
+        uri: process.env['NYPL_API_SCHEMA_URL'],
+        json: true
+      };
+      console.log('Loading schema...');
+      request(options, function(error, resp, body){
+        if (error) {
+          reject(error);
+        }
+        if (body.data && body.data.schema) {
+          console.log('Sucessfully loaded schema');
+          var schema = JSON.parse(body.data.schema);
+          CACHE['schema'] = schema;
+          resolve(schema);
+        }
+        else {
+          reject();
+        }
+      });
+    });
+  }
+
+  // oauth token retriever
+  function token() {
+    // access token in cache; just return it as a instant promise
+    if (CACHE['access_token']) {
+      console.log('Already authenticated');
+      return new Promise(function(resolve, reject){
+        resolve(CACHE['access_token']);
+      });
+    }
+
+    // request a new token
+    console.log('Requesting new token...');
+    return new Promise(function (resolve, reject) {
+      var OAuth2 = OAuth.OAuth2;
+      var key = process.env['NYPL_OAUTH_KEY'];
+      var secret = process.env['NYPL_OAUTH_SECRET'];
+      var url = process.env['NYPL_OAUTH_URL'];
+      var auth = new OAuth2(key, secret, url, null, 'oauth/token', null);
+      auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function(e, access_token, refresh_token, results) {
+        console.log('Successfully authenticated');
+        CACHE['access_token'] = access_token;
+        resolve(access_token);
+      });
     });
   }
 };
 
 // main function
-exports.handler = function(event, context) {
+exports.handler = function(event, context, callback) {
   var record = event.Records[0];
   if (record.kinesis) {
-    exports.kinesisHandler(event.Records, context);
+    exports.kinesisHandler(event.Records, context, callback);
   }
 };
