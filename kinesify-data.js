@@ -4,7 +4,6 @@
 
 const args = process.argv.slice(2);
 const avro = require('avsc');
-const config = require('config');
 const fs = require('fs');
 const request = require('request');
 
@@ -23,11 +22,11 @@ function onSchemaLoad(schema){
   // encode data and put in kinesis format
   var kinesisEncodedData = unencodedData.Records
     .map(function(record){
-      kinesify(record, avroType);
+      return kinesify(record, avroType);
     });
 
   // stringify and write to file
-  var json = JSON.stringify({"Records": kinesisEncodedData});
+  var json = JSON.stringify({"Records": kinesisEncodedData}, null, 2);
   fs.writeFile(outfile, json, 'utf8', function(err, data){
     if (err) {
       console.log('Write error:', err);

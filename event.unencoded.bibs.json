@@ -37,13 +37,13 @@
       },
       "normTitle": "string",
       "normAuthor": "string",
-      "fixedFields": [
-        {
+      "fixedFields": {
+        "24": {
           "label": "Language",
           "value": "eng",
           "display": "English"
         }
-      ],
+      },
       "varFields": [
         {
           "fieldTag": "a",
