@@ -39,6 +39,7 @@ jspm_packages
 # Node-lambda
 .env
 deploy.env
+deploy-*.env
 event.json
 context.json
 

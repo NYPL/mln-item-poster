@@ -40,4 +40,21 @@ This will take `events.json` (which is mocked-up kinesis stream data) as input, 
 
 ## Deploy
 
-TODO
+You can deploy this code to two different lambdas that handle bibs and items respectively. Update `deploy-bib.env` and `deploy-item.env` with at least these:
+
+```
+NYPL_OAUTH_URL=xxx
+NYPL_OAUTH_KEY=xxx
+NYPL_OAUTH_SECRET=xxx
+NYPL_API_POST_URL=xxx
+NYPL_API_SCHEMA_URL=xxx
+```
+
+Then run:
+
+```
+node-lambda deploy --functionName bibPoster --environment production --configFile deploy-bib.env
+node-lambda deploy --functionName itemPoster --environment production --configFile deploy-item.env
+```
+
+Will deploy to Lambdas called `bibPoster-production` and `itemPoster-production`. Add a Kinesis stream triggers to execute function if not already added.
