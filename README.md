@@ -25,7 +25,7 @@ NYPL_API_SCHEMA_URL=xxx
 Generate mock-data by running
 
 ```
-node kinesify-data.js event.unencoded.bibs.json event.json https://api.nypltech.org/api/v0.1/current-schemas/Bib
+node kinesify-data.js event.unencoded.sierra_bib_post_request.json event.json https://api.nypltech.org/api/v0.1/current-schemas/SierraBibPostRequest
 ```
 
 This will take the un-encoded data in `event.unencoded.bibs.json` and put it in a kinesis stream format using the avro schema. You can load items by replacing the input file with `event.unencoded.items.json`
