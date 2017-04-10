@@ -28,10 +28,11 @@ exports.kinesisHandler = function (records, context, callback) {
     // parse payload
     var records = payload
       .map(function (record) {
-        return parseKinesis(record, avroType)
+        return addSource(parseKinesis(record, avroType))
       })
     // post to API
     console.log('Posting records')
+    console.log(records)
     postRecords(accessToken, records)
   }
 
@@ -42,6 +43,13 @@ exports.kinesisHandler = function (records, context, callback) {
     var buf = new Buffer(payload.kinesis.data, 'base64')
     // decode avro
     var record = avroType.fromBuffer(buf)
+    return record
+  }
+
+  function addSource (record) {
+    console.log('Adding source')
+    record['nyplSource'] = 'sierra-nypl'
+    record['nyplType'] = process.env['NYPL_POST_TYPE']
     return record
   }
 
