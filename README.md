@@ -18,6 +18,7 @@ NYPL_OAUTH_KEY=xxx
 NYPL_OAUTH_SECRET=xxx
 NYPL_API_POST_URL=xxx
 NYPL_API_SCHEMA_URL=xxx
+NYPL_POST_TYPE=xxx
 ```
 
 `NYPL_API_POST_URL` is the API URL you will be posting to. So this can be configured to be the bib or item endpoint. Similarly with `NYPL_API_SCHEMA_URL`, you can configure this to be bib or item schema.
@@ -48,6 +49,7 @@ NYPL_OAUTH_KEY=xxx
 NYPL_OAUTH_SECRET=xxx
 NYPL_API_POST_URL=xxx
 NYPL_API_SCHEMA_URL=xxx
+NYPL_POST_TYPE=xxx
 ```
 
 Then run:
