@@ -82,7 +82,7 @@ exports.kinesisHandler = function (records, context, callback) {
     })
   }
 
-  function schema() {
+  function schema () {
     // schema in cache; just return it as a instant promise
     if (CACHE['schema']) {
       console.log('Already have schema')
