@@ -1,138 +1,156 @@
-console.log('Loading Discovery Bib Poster');
+console.log('Loading Discovery Bib Poster')
 
-const avro = require('avsc');
-const OAuth = require('oauth');
-const Promise = require('promise');
-const request = require('request');
+const avro = require('avsc')
+const OAuth = require('oauth')
+const Promise = require('promise')
+const request = require('request')
+
+const defaultNyplSource = 'sierra-nypl'
 
 // Initialize cache
-var CACHE = {};
+var CACHE = {}
 
 // kinesis stream handler
-exports.kinesisHandler = function(records, context, callback) {
-  console.log('Processing ' + records.length + ' records');
+exports.kinesisHandler = function (records, context, callback) {
+  console.log('Processing ' + records.length + ' records')
 
   // retrieve token and schema
   Promise.all([token(), schema()])
     .then(function (res) {
-      var access_token = res[0];
-      var schema = res[1];
-      onReady(records, access_token, schema);
-    });
+      var accessToken = res[0]
+      var schema = res[1]
+      onReady(records, accessToken, schema)
+    })
 
   // run when access token and schema are loaded
-  function onReady(payload, access_token, schema) {
-    // console.log('Ready', access_token, schema);
+  function onReady (payload, accessToken, schema) {
+    console.log('Ready', accessToken, schema)
     // load avro schema
-    var avroType = avro.parse(schema);
+    var avroType = avro.parse(schema)
     // parse payload
-    var data = payload
-      .map(function(record){
-        return parseKinesis(record, avroType);
-      });
+    var records = payload
+      .map(function (record) {
+        return addSource(parseKinesis(record, avroType))
+      })
     // post to API
-    postRecords(access_token, data);
+    console.log('Posting records')
+    console.log(records)
+    postRecords(accessToken, records)
   }
 
   // map to records objects as needed
-  function parseKinesis(payload, avroType) {
+  function parseKinesis (payload, avroType) {
+    console.log('Parsing Kinesis')
     // decode base64
-    var buf = new Buffer(payload.kinesis.data, 'base64');
+    var buf = new Buffer(payload.kinesis.data, 'base64')
     // decode avro
-    var record = avroType.fromBuffer(buf);
-    return record;
+    var record = avroType.fromBuffer(buf)
+    return record
+  }
+
+  function addSource (record) {
+    console.log('Adding source')
+    record['nyplSource'] = defaultNyplSource
+    record['nyplType'] = process.env['NYPL_POST_TYPE']
+    return record
   }
 
   // bulk posts records
-  function postRecords(access_token, records) {
+  function postRecords (accessToken, records) {
     var options = {
       uri: process.env['NYPL_API_POST_URL'],
       method: 'POST',
-      headers: { Authorization: `Bearer ${access_token}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
       body: records,
       json: true
-    };
+    }
 
     // POST request
-    request(options, function(error, response, body){
+    request(options, function (error, response, body) {
+      console.log('Posting...')
       if (error || body.errors && body.errors.length) {
+        console.log(body.errors)
         if (error) {
-          callback(new Error(error));
+          console.log('Error! ' + error)
+          callback(new Error(error))
         } else {
-          callback(new Error(body.errors[0]));
+          console.log('Error! ' + body.errors)
+          callback(new Error(body.errors))
         }
-        // context.fail();
-
       } else {
-        callback(null, "POST Success");
-        // context.succeed();
+        callback(null, 'POST Success')
       }
-    });
+    })
   }
 
-  function schema() {
+  function schema () {
     // schema in cache; just return it as a instant promise
     if (CACHE['schema']) {
-      console.log('Already have schema');
-      return new Promise(function(resolve, reject){
-        resolve(CACHE['schema']);
-      });
+      console.log('Already have schema')
+      return new Promise(function (resolve, reject) {
+        resolve(CACHE['schema'])
+      })
     }
 
     return new Promise(function (resolve, reject) {
       var options = {
         uri: process.env['NYPL_API_SCHEMA_URL'],
         json: true
-      };
-      console.log('Loading schema...');
-      request(options, function(error, resp, body){
+      }
+      console.log('Loading schema...')
+      request(options, function (error, resp, body) {
         if (error) {
-          reject(error);
+          console.log('Error! ' + error)
+          reject(error)
         }
         if (body.data && body.data.schema) {
-          console.log('Sucessfully loaded schema');
-          var schema = JSON.parse(body.data.schema);
-          CACHE['schema'] = schema;
-          resolve(schema);
+          console.log('Sucessfully loaded schema')
+          var schema = JSON.parse(body.data.schema)
+          CACHE['schema'] = schema
+          resolve(schema)
+        } else {
+          reject()
         }
-        else {
-          reject();
-        }
-      });
-    });
+      })
+    })
   }
 
   // oauth token retriever
-  function token() {
+  function token () {
     // access token in cache; just return it as a instant promise
-    if (CACHE['access_token']) {
-      console.log('Already authenticated');
-      return new Promise(function(resolve, reject){
-        resolve(CACHE['access_token']);
-      });
+    if (CACHE['accessToken']) {
+      console.log('Already authenticated')
+      return new Promise(function (resolve, reject) {
+        resolve(CACHE['accessToken'])
+      })
     }
 
     // request a new token
-    console.log('Requesting new token...');
+    console.log('Requesting new token...')
     return new Promise(function (resolve, reject) {
-      var OAuth2 = OAuth.OAuth2;
-      var key = process.env['NYPL_OAUTH_KEY'];
-      var secret = process.env['NYPL_OAUTH_SECRET'];
-      var url = process.env['NYPL_OAUTH_URL'];
-      var auth = new OAuth2(key, secret, url, null, 'oauth/token', null);
-      auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function(e, access_token, refresh_token, results) {
-        console.log('Successfully authenticated');
-        CACHE['access_token'] = access_token;
-        resolve(access_token);
-      });
-    });
+      var OAuth2 = OAuth.OAuth2
+      var key = process.env['NYPL_OAUTH_KEY']
+      var secret = process.env['NYPL_OAUTH_SECRET']
+      var url = process.env['NYPL_OAUTH_URL']
+      var auth = new OAuth2(key, secret, url, null, 'oauth/token', null)
+      auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function (error, accessToken, refreshToken, results) {
+        if (error) {
+          reject(error)
+          console.log('Not authenticated')
+        } else {
+          console.log('Successfully authenticated')
+          CACHE['accessToken'] = accessToken
+          resolve(accessToken)
+        }
+      })
+    })
   }
-};
+}
 
 // main function
-exports.handler = function(event, context, callback) {
-  var record = event.Records[0];
+exports.handler = function (event, context, callback) {
+  var record = event.Records[0]
   if (record.kinesis) {
-    exports.kinesisHandler(event.Records, context, callback);
+    exports.kinesisHandler(event.Records, context, callback)
   }
-};
+}
