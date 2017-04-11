@@ -5,6 +5,8 @@ const OAuth = require('oauth')
 const Promise = require('promise')
 const request = require('request')
 
+const defaultNyplSource = 'sierra-nypl'
+
 // Initialize cache
 var CACHE = {}
 
@@ -48,7 +50,7 @@ exports.kinesisHandler = function (records, context, callback) {
 
   function addSource (record) {
     console.log('Adding source')
-    record['nyplSource'] = 'sierra-nypl'
+    record['nyplSource'] = defaultNyplSource
     record['nyplType'] = process.env['NYPL_POST_TYPE']
     return record
   }
@@ -67,17 +69,16 @@ exports.kinesisHandler = function (records, context, callback) {
     request(options, function (error, response, body) {
       console.log('Posting...')
       if (error || body.errors && body.errors.length) {
+        console.log(body.errors)
         if (error) {
           console.log('Error! ' + error)
           callback(new Error(error))
         } else {
-          console.log('Error! ' + body.errors[0])
-          callback(new Error(body.errors[0]))
+          console.log('Error! ' + body.errors)
+          callback(new Error(body.errors))
         }
-        context.fail()
       } else {
         callback(null, 'POST Success')
-        context.succeed()
       }
     })
   }
