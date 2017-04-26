@@ -121,6 +121,7 @@ exports.kinesisHandler = function (records, context, callback) {
           resolve(schema)
         } else {
           reject()
+          logger.log('error', {'message': 'Schema did not load'})
         }
       })
     })
@@ -147,7 +148,7 @@ exports.kinesisHandler = function (records, context, callback) {
       auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function (error, accessToken, refreshToken, results) {
         if (error) {
           reject(error)
-          logger.log('info', {'message': 'Not authenticated'})
+          logger.log('error', {'message': 'Not authenticated'})
         } else {
           logger.log('info', {'message': 'Successfully authenticated'})
           CACHE['accessToken'] = accessToken
