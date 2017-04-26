@@ -8,11 +8,21 @@ const defaultNyplSource = 'sierra-nypl'
 // Initialize cache
 var CACHE = {}
 
-winston.log('info', {'message': 'Loading Discovery Poster'})
+const logger = new winston.Logger({
+  transports: [
+    new winston.transports.Console({
+      handleExceptions: true,
+      json: true
+    })
+  ],
+  exitOnError: false
+});
+
+logger.log('info', {'message': 'Loading Discovery Poster'})
 
 // kinesis stream handler
 exports.kinesisHandler = function (records, context, callback) {
-  winston.log('info', {'message': 'Processing ' + records.length + ' records'})
+  logger.log('info', {'message': 'Processing ' + records.length + ' records'})
 
   // retrieve token and schema
   Promise.all([token(), schema()])
@@ -32,13 +42,13 @@ exports.kinesisHandler = function (records, context, callback) {
         return addSource(parseKinesis(record, avroType))
       })
     // post to API
-    winston.log('info', {'message': 'Posting records'})
+    logger.log('info', {'message': 'Posting records'})
     postRecords(accessToken, records)
   }
 
   // map to records objects as needed
   function parseKinesis (payload, avroType) {
-    winston.log('info', {'message': 'Parsing Kinesis'})
+    logger.log('info', {'message': 'Parsing Kinesis'})
     // decode base64
     var buf = new Buffer(payload.kinesis.data, 'base64')
     // decode avro
@@ -47,10 +57,10 @@ exports.kinesisHandler = function (records, context, callback) {
   }
 
   function addSource (record) {
-    winston.log('info', {'message': 'Adding source'})
+    logger.log('info', {'message': 'Adding source'})
     record['nyplSource'] = defaultNyplSource
     record['nyplType'] = process.env['NYPL_POST_TYPE']
-    winston.log('info', {'message': 'Added ' + record['nyplSource'] + ' and ' + record['nyplType']})
+    logger.log('info', {'message': 'Added ' + record['nyplSource'] + ' and ' + record['nyplType']})
     return record
   }
 
@@ -66,20 +76,20 @@ exports.kinesisHandler = function (records, context, callback) {
 
     // POST request
     request(options, function (error, response, body) {
-      winston.log('info', {'message': 'Posting...'})
-      winston.log('info', {'message': 'Response: ' + JSON.stringify(response.statusCode)})
+      logger.log('info', {'message': 'Posting...'})
+      logger.log('info', {'message': 'Response: ' + JSON.stringify(response.statusCode)})
       if (error || response.statusCode !== 200) {
         if (response.statusCode === 401) {
           CACHE['accessToken'] = null
         }
-        winston.log('info', {'message': 'POST Error! ' + JSON.stringify(error)})
+        logger.log('info', {'message': 'POST Error! ' + JSON.stringify(error)})
         callback(new Error(error))
         return
       }
       if (body.errors && body.errors.length) {
-        winston.log('info', {'message': 'Data error: ' + JSON.stringify(body.errors)})
+        logger.log('info', {'message': 'Data error: ' + JSON.stringify(body.errors)})
       }
-      winston.log('info', {'message': 'POST Success'})
+      logger.log('info', {'message': 'POST Success'})
       callback(null, 'POST Success')
     })
   }
@@ -87,7 +97,7 @@ exports.kinesisHandler = function (records, context, callback) {
   function schema () {
     // schema in cache; just return it as a instant promise
     if (CACHE['schema']) {
-      winston.log('info', {'message': 'Already have schema'})
+      logger.log('info', {'message': 'Already have schema'})
       return new Promise(function (resolve, reject) {
         resolve(CACHE['schema'])
       })
@@ -98,14 +108,14 @@ exports.kinesisHandler = function (records, context, callback) {
         uri: process.env['NYPL_API_SCHEMA_URL'],
         json: true
       }
-      winston.log('info', {'message': 'Loading schema...'})
+      logger.log('info', {'message': 'Loading schema...'})
       request(options, function (error, resp, body) {
         if (error) {
-          winston.log('info', {'message': 'Error! ' + error})
+          logger.log('info', {'message': 'Error! ' + error})
           reject(error)
         }
         if (body.data && body.data.schema) {
-          winston.log('info', {'message': 'Sucessfully loaded schema'})
+          logger.log('info', {'message': 'Sucessfully loaded schema'})
           var schema = JSON.parse(body.data.schema)
           CACHE['schema'] = schema
           resolve(schema)
@@ -120,14 +130,14 @@ exports.kinesisHandler = function (records, context, callback) {
   function token () {
     // access token in cache; just return it as a instant promise
     if (CACHE['accessToken']) {
-      winston.log('info', {'message': 'Already authenticated'})
+      logger.log('info', {'message': 'Already authenticated'})
       return new Promise(function (resolve, reject) {
         resolve(CACHE['accessToken'])
       })
     }
 
     // request a new token
-    winston.log('info', {'message': 'Requesting new token...'})
+    logger.log('info', {'message': 'Requesting new token...'})
     return new Promise(function (resolve, reject) {
       var OAuth2 = OAuth.OAuth2
       var key = process.env['NYPL_OAUTH_KEY']
@@ -137,9 +147,9 @@ exports.kinesisHandler = function (records, context, callback) {
       auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function (error, accessToken, refreshToken, results) {
         if (error) {
           reject(error)
-          winston.log('info', {'message': 'Not authenticated'})
+          logger.log('info', {'message': 'Not authenticated'})
         } else {
-          winston.log('info', {'message': 'Successfully authenticated'})
+          logger.log('info', {'message': 'Successfully authenticated'})
           CACHE['accessToken'] = accessToken
           resolve(accessToken)
         }
