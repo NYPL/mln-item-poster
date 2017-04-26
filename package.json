@@ -1,7 +1,7 @@
 {
   "name": "discovery-bib-poster",
   "version": "0.1.0",
-  "description": "Reads bibs from stream, posts to bib service",
+  "description": "Reads bibs/items from stream, posts to bib or item service",
   "devDependencies": {},
   "author": "NYPL",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "avsc": "^4.1.11",
     "oauth": "^0.9.15",
     "promise": "^7.1.1",
-    "request": "^2.80.0"
+    "request": "^2.80.0",
+    "winston": "^2.3.1"
   }
 }
