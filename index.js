@@ -82,7 +82,7 @@ exports.kinesisHandler = function (records, context, callback) {
         if (response.statusCode === 401) {
           CACHE['accessToken'] = null
         }
-        logger.log('info', {'message': 'POST Error! ' + JSON.stringify(error)})
+        logger.log('error', {'message': 'POST Error! ' + JSON.stringify(error)})
         callback(new Error(error))
         return
       }
