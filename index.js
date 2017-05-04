@@ -88,13 +88,13 @@ exports.kinesisHandler = function (records, context, callback) {
         }
 
         callback(new Error())
-        logger.error({'message': 'POST Error! ', response: response})
+        logger.error({'message': 'POST Error! ', 'response': response})
         return
       }
 
       if (error) {
         callback(new Error())
-        logger.error({'message': 'POST Error! ', error: error})
+        logger.error({'message': 'POST Error! ', 'error': error})
         return
       }
 
