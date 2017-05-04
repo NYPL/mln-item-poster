@@ -79,16 +79,29 @@ exports.kinesisHandler = function (records, context, callback) {
     request(options, function (error, response, body) {
       logger.info({'message': 'Posting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
-      if (error || response.statusCode !== 200) {
+
+
+      if (response.statusCode !== 200) {
         if (response.statusCode === 401) {
+          // Clear access token so new one will be requested on retried request
           CACHE['accessToken'] = null
         }
-        logger.error({'message': 'POST Error! ' + error})
+
+        callback(new Error())
+        logger.error({'message': 'POST Error! ', response: response})
         return
       }
+
+      if (error) {
+        callback(new Error())
+        logger.error({'message': 'POST Error! ', error: error})
+        return
+      }
+
       if (body.errors && body.errors.length) {
         logger.info({'message': 'Data error: ' + body.errors})
       }
+
       logger.info({'message': 'POST Success'})
     })
   }
