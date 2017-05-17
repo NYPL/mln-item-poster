@@ -3,7 +3,6 @@ const OAuth = require('oauth')
 const Promise = require('promise')
 const request = require('request')
 const winston = require('winston');
-const defaultNyplSource = 'sierra-nypl'
 
 // Initialize cache
 var CACHE = {}
@@ -40,7 +39,7 @@ exports.kinesisHandler = function (records, context, callback) {
     // parse payload
     var records = payload
       .map(function (record) {
-        return addSource(parseKinesis(record, avroType))
+        return parseKinesis(record, avroType)
       })
     // post to API
     logger.info({'message': 'Posting records'})
@@ -54,14 +53,6 @@ exports.kinesisHandler = function (records, context, callback) {
     var buf = new Buffer(payload.kinesis.data, 'base64')
     // decode avro
     var record = avroType.fromBuffer(buf)
-    return record
-  }
-
-  function addSource (record) {
-    logger.info({'message': 'Adding source'})
-    record['nyplSource'] = defaultNyplSource
-    record['nyplType'] = process.env['NYPL_POST_TYPE']
-    logger.info({'message': 'Added ' + record['nyplSource'] + ' and ' + record['nyplType']})
     return record
   }
 
