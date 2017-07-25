@@ -34,26 +34,37 @@ exports.kinesisHandler = function (records, context, callback) {
 
   // run when access token and schema are loaded
   function onReady (payload, accessToken, schema) {
-    // load avro schema
-    var avroType = avro.parse(schema)
-    // parse payload
-    var records = payload
-      .map(function (record) {
-        return parseKinesis(record, avroType)
-      })
-    // post to API
-    logger.info({'message': 'Posting records'})
-    postRecords(accessToken, records)
+    try{
+      // load avro schema
+      var avroType = avro.Type.forSchema(schema)
+      // parse payload
+      var records = payload
+        .map(function (record) {
+          return parseKinesis(record, avroType)
+        })
+      // post to API
+      logger.info({'message': 'Posting records'})
+      postRecords(accessToken, records)
+    } catch (error) {
+        log.error({'message' : error.message, 'error' : error})
+        callback(error)
+    }
   }
 
   // map to records objects as needed
   function parseKinesis (payload, avroType) {
-    logger.info({'message': 'Parsing Kinesis'})
-    // decode base64
-    var buf = new Buffer(payload.kinesis.data, 'base64')
-    // decode avro
-    var record = avroType.fromBuffer(buf)
-    return record
+    try{
+      logger.info({'message': 'Parsing Kinesis'})
+      // decode base64
+      var buf = new Buffer(payload.kinesis.data, 'base64')
+      
+      // decode avro
+      var record = avroType.fromBuffer(buf)
+
+      return record
+    } catch(error){
+        throw new Error(error)
+    }
   }
 
   // bulk posts records
