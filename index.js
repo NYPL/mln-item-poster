@@ -53,18 +53,14 @@ exports.kinesisHandler = function (records, context, callback) {
 
   // map to records objects as needed
   function parseKinesis (payload, avroType) {
-    try {
-      logger.info({'message': 'Parsing Kinesis'})
+    logger.info({'message': 'Parsing Kinesis'})
       // decode base64
-      var buf = new Buffer(payload.kinesis.data, 'base64')
+    var buf = new Buffer(payload.kinesis.data, 'base64')
 
       // decode avro
-      var record = avroType.fromBuffer(buf)
+    var record = avroType.fromBuffer(buf)
 
-      return record
-    } catch (error) {
-      throw new Error(error)
-    }
+    return record
   }
 
   // bulk posts records
