@@ -1,27 +1,31 @@
 # Discovery Bib/Item Poster
 
-Reads bibs or items from stream, posts to bib or item service.
+This lambda should be deployed to two different lambdas.
+One to handle bibs, another for items. It reads those bibs or items from stream, then posts them to the bib or item service.
 
 ## Setup
 
-```
+1.  ```
 npm install
 npm install -g node-lambda
-node-lambda setup
+cp example.env .env
+cp deploy.example.env deploy-bib.env
+cp deploy.example.env deploy-item.env
 ```
 
-Configure `.env` with at least these keys:
+1.  Fill in `.env` with amazon account information
 
-```
-NYPL_OAUTH_URL=xxx
-NYPL_OAUTH_KEY=xxx
-NYPL_OAUTH_SECRET=xxx
-NYPL_API_POST_URL=xxx
-NYPL_API_SCHEMA_URL=xxx
-NYPL_POST_TYPE=xxx
-```
+1.  Fill in `deploy-*.env` files with the following variables
 
-`NYPL_API_POST_URL` is the API URL you will be posting to. So this can be configured to be the bib or item endpoint. Similarly with `NYPL_API_SCHEMA_URL`, you can configure this to be bib or item schema.
+| Variable            | Value                     |
+| :-------------      | :-------------            |
+| NYPL_API_SCHEMA_URL | URL to bib or item schema |
+| NYPL_POST_TYPE      | 'bib' or 'item'           |
+| NYPL_API_POST_URL   | URL this will POST to     |
+| NYPL_OAUTH_URL      |                           |
+| NYPL_OAUTH_KEY      |                           |
+| NYPL_OAUTH_SECRET   |.                          |
+
 
 Generate mock-data by running
 
@@ -40,17 +44,6 @@ node-lambda run
 This will take `event.json` (which is mocked-up kinesis stream data) as input, authenticate with oauth server, retrieve schema from Schema API, parse stream data, then post it to the bib or item API depending on config.
 
 ## Deploy
-
-You can deploy this code to two different lambdas that handle bibs and items respectively. Update `deploy-bib.env` and `deploy-item.env` with at least these:
-
-```
-NYPL_OAUTH_URL=xxx
-NYPL_OAUTH_KEY=xxx
-NYPL_OAUTH_SECRET=xxx
-NYPL_API_POST_URL=xxx
-NYPL_API_SCHEMA_URL=xxx
-NYPL_POST_TYPE=xxx
-```
 
 Update event.json by running the above kinesify-data.js script for either item or bib.  
 
