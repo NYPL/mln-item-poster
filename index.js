@@ -2,7 +2,7 @@ const avro = require('avsc')
 const OAuth = require('oauth')
 const Promise = require('promise')
 const request = require('request')
-const winston = require('winston');
+const winston = require('winston')
 
 // Initialize cache
 var CACHE = {}
@@ -16,7 +16,7 @@ const logger = new winston.Logger({
     })
   ],
   exitOnError: false
-});
+})
 
 logger.info({'message': 'Loading Discovery Poster'})
 
@@ -34,25 +34,32 @@ exports.kinesisHandler = function (records, context, callback) {
 
   // run when access token and schema are loaded
   function onReady (payload, accessToken, schema) {
-    // load avro schema
-    var avroType = avro.parse(schema)
-    // parse payload
-    var records = payload
-      .map(function (record) {
-        return parseKinesis(record, avroType)
-      })
-    // post to API
-    logger.info({'message': 'Posting records'})
-    postRecords(accessToken, records)
+    try {
+      // load avro schema
+      var avroType = avro.Type.forSchema(schema)
+      // parse payload
+      var records = payload
+        .map(function (record) {
+          return parseKinesis(record, avroType)
+        })
+      // post to API
+      logger.info({'message': 'Posting records'})
+      postRecords(accessToken, records)
+    } catch (error) {
+      logger.error({'message': error.message, 'error': error})
+      callback(error)
+    }
   }
 
   // map to records objects as needed
   function parseKinesis (payload, avroType) {
     logger.info({'message': 'Parsing Kinesis'})
-    // decode base64
+      // decode base64
     var buf = new Buffer(payload.kinesis.data, 'base64')
-    // decode avro
+
+      // decode avro
     var record = avroType.fromBuffer(buf)
+
     return record
   }
 
@@ -70,7 +77,6 @@ exports.kinesisHandler = function (records, context, callback) {
     request(options, function (error, response, body) {
       logger.info({'message': 'Posting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
-
 
       if (response.statusCode !== 200) {
         if (response.statusCode === 401) {
@@ -123,7 +129,7 @@ exports.kinesisHandler = function (records, context, callback) {
           CACHE['schema'] = schema
           resolve(schema)
         } else {
-          reject()
+          reject(new Error('Schema did not load'))
           logger.error({'message': 'Schema did not load'})
         }
       })
