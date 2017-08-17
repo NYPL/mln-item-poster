@@ -5,7 +5,9 @@ One to handle bibs, another for items. It reads those bibs or items from stream,
 
 ## Setup
 
-1.  ```
+1.  Run
+
+```
 npm install
 npm install -g node-lambda
 cp example.env .env
