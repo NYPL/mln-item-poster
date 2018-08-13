@@ -1,6 +1,6 @@
 // Usage:
 //  The following command will take unencoded json, encode it with avro schema, encode it with base64, and put in Kinesis format.
-//    node kinesify-data.js event.unencoded.sierra_bib_post_request.json event.json https://api.nypltech.org/api/v0.1/current-schemas/Bib
+//    node kinesify-data.js event.unencoded.sierra_bib_post_request.json event.json https://platform.nypl.org/api/v0.1/current-schemas/BibPostRequest
 
 const args = process.argv.slice(2)
 const avro = require('avsc')
