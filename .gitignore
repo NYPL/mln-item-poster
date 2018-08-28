@@ -45,3 +45,6 @@ context.json
 
 # App
 config/production.json
+
+# Config files
+config

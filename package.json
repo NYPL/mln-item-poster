@@ -10,8 +10,17 @@
     "type": "git",
     "url": "https://github.com/NYPL-discovery/discovery-bib-poster.git"
   },
+  "scripts": {
+    "deploy-bib-production": "node-lambda deploy --functionName BibPoster --environment production --configFile ./config/bib-production.env",
+    "deploy-item-production": "node-lambda deploy --functionName ItemPoster --environment production --configFile ./config/item-production.env",
+    "deploy-bib-qa": "node-lambda deploy --functionName BibPoster --environment qa --configFile ./config/bib-qa.env --role arn:aws:iam::946183545209:role/lambda-full-access -b subnet-59bcdd03,subnet-5deecd15 -g sg-116eeb60 --profile nypl-digital-dev -S ./config/event-sources-bib-qa",
+    "deploy-item-qa": "node-lambda deploy --functionName ItemPoster --environment qa --configFile ./config/item-qa.env --role arn:aws:iam::946183545209:role/lambda-full-access -b subnet-59bcdd03,subnet-5deecd15 -g sg-116eeb60 --profile nypl-digital-dev -S ./config/event-sources-item-qa",
+    "deploy-bib-development": "node-lambda deploy --functionName BibPoster --environment development --configFile ./config/bib-development.env",
+    "deploy-item-development": "node-lambda deploy --functionName ItemPoster --environment development --configFile ./config/item-development.env"
+  },
   "dependencies": {
     "avsc": "^5.0.4",
+    "node-lambda": "^0.11.7",
     "oauth": "^0.9.15",
     "promise": "^7.1.1",
     "request": "^2.80.0",
