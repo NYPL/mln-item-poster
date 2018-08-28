@@ -44,7 +44,9 @@ event.json
 context.json
 
 # App
-config/production.json
-
-# Config files
-config
+config/bib-development.env
+config/item-development.env
+config/bib-qa.env
+config/item-qa.env
+config/bib-production.env
+config/item-production.env
