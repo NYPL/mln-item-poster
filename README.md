@@ -45,6 +45,24 @@ node-lambda run
 
 This will take `event.json` (which is mocked-up kinesis stream data) as input, authenticate with oauth server, retrieve schema from Schema API, parse stream data, then post it to the bib or item API depending on config.
 
+## GIT Workflow
+
+We follow a [feature-branch](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow) workflow. Our branches, ordered from least-stable to most stable are:
+
+| branch        | AWS account      |
+|:--------------|:-----------------|
+| `development` | nypl-sandbox     |
+| `qa`          | nypl-digital-dev |
+| `master`      | nypl-digital-dev |
+
+If you need to introduce/update the application code, you `SHOULD`:
+
+* Create feature branches off the `development` branch.
+* Send a PR pointing to the `development` branch upon completion of feature branch.
+* Once the PR is approved, it should be merged into the `development` branch.
+* When a release is to be deployed, the `development` branch will be merged into `qa`.
+* Upon feeling happy with the results in QA, merge `qa` into `master`.
+
 ## Deploy
 
 Update event.json by running the above kinesify-data.js script for either item or bib.
