@@ -49,3 +49,5 @@ config/bib-qa.env
 config/item-qa.env
 config/bib-production.env
 config/item-production.env
+
+.lambda
