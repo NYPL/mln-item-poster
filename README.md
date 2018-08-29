@@ -47,13 +47,15 @@ This will take `event.json` (which is mocked-up kinesis stream data) as input, a
 
 ## Deploy
 
-Update event.json by running the above kinesify-data.js script for either item or bib.  
+Update event.json by running the above kinesify-data.js script for either item or bib.
+
+Make sure you have the correct config/[bib|item]-[environment].env files. See config/deploy.example.env for an
+example.  
 
 Then run:
 
 ```
-node-lambda deploy --functionName bibPoster --environment production --configFile deploy-bib.env
-node-lambda deploy --functionName itemPoster --environment production --configFile deploy-item.env
+npm run deploy-[bib|item]-[development|qa|production]
 ```
 
-Will deploy to Lambdas called `bibPoster-production` and `itemPoster-production`. Add a Kinesis stream triggers to execute function if not already added.
+Will deploy to Lambdas called `[bib|item]Poster-[environment]`. You can add a Kinesis stream triggers to execute function if not already added, but Kinesis stream triggers should be added automatically.

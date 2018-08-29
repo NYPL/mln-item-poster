@@ -37,11 +37,15 @@ jspm_packages
 .node_repl_history
 
 # Node-lambda
-.env
 deploy.env
 deploy-*.env
 event.json
 context.json
 
 # App
-config/production.json
+config/bib-development.env
+config/item-development.env
+config/bib-qa.env
+config/item-qa.env
+config/bib-production.env
+config/item-production.env
