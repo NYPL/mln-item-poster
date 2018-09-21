@@ -6,7 +6,7 @@ deploy:
   skip_cleanup: true
   script: npm run deploy-bib-development
   on:
-    branch: development
+    branch: set-up-lambda
 env:
   global:
   - secure: jhho4/dfBXf2RKX8HS6Xhipy+FHGyVBBKOtLRgFfdVUBp+wv3rzwosvK36/1L3y0ePHziGCtizgRKZnDr2MpbEt+OK80bs0ztLuVOpcWkJ6WfjdNSLk62cXjXE0X1bW27PB4Kj4bvO/u5UztBJPVaHLOU8IVqgaRtxxBQse7PDcxIos+a9hgPrleVl4F7ZUnXhLWovs3L9x72qUgxBYnsBhpHXSnllt0oLrcLvevB0J14csmdRaa7HF+o6ZBGk1D/fgraHnn52t6cp4IA9oCIWolPGkxmXWnb524A/y7hzHPAN9uBFRWweMgBaGl0kYA55ANGf7xw7phpeezhBRpzCAURMaSEIKy+yUodJmjwNes5c+Xo+pHepVnWMrfKtCxCIdtVHJo92KkGpCHFoB+J4fU0g2hdbSZn647myd6ZB0gWYOzG+BH6l2MpC+MBBf3ICG5LAWufIGj+aOXHSN7cum+MykrWQwQlgj+L0BifjF+Pw1iNJd5xKaRQwPu7muMbPDJFc2f7H0L87Swe9maEYSVdQrS7CeVXPBowM6fiKz0QagPk6d6y7Z8rs0Muhfzqv9tqRidkBzZS7mjLUeANGBb5e6Vhtw+ZTgWG6fTXwEbK8S7foTkgyzwaiyWqHyEACwU9wq+MikScVOcdT94Vc5GQVT9sq9dcsouu1IHpJo=
