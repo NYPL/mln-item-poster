@@ -1,7 +1,7 @@
 {
   "EventSourceMappings": [
     {
-      "EventSourceArn": "arn:aws:kinesis:us-east-1:224280085904:stream/BibPostRequest",
+      "EventSourceArn": "arn:aws:kinesis:us-east-1:224280085904:stream/Bib",
       "StartingPosition": "LATEST",
       "BatchSize": 200,
       "Enabled": true
