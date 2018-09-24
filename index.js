@@ -18,7 +18,7 @@ const logger = new winston.Logger({
   exitOnError: false
 })
 
-logger.info({'message': 'Loading Discovery Poster'})
+logger.info({'message': 'Loading MLN Bib Poster'})
 
 // kinesis stream handler
 exports.kinesisHandler = function (records, context, callback) {
@@ -56,10 +56,8 @@ exports.kinesisHandler = function (records, context, callback) {
     logger.info({'message': 'Parsing Kinesis'})
       // decode base64
     var buf = new Buffer(payload.kinesis.data, 'base64')
-
       // decode avro
     var record = avroType.fromBuffer(buf)
-
     return record
   }
 
@@ -77,7 +75,6 @@ exports.kinesisHandler = function (records, context, callback) {
     request(options, function (error, response, body) {
       logger.info({'message': 'Posting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
-
       if (response.statusCode !== 200) {
         if (response.statusCode === 401) {
           // Clear access token so new one will be requested on retried request
