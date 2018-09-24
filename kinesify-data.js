@@ -9,10 +9,16 @@ const request = require('request')
 
 // config
 const infile = args[0]
+console.log(infile)
 const outfile = args[1]
+console.log(outfile)
 const schemaUrl = args[2]
 
 function onSchemaLoad(schema){
+  console.log("**********")
+  console.log(schema)
+    console.log("**********")
+
   // initialize avro schema
   var avroType = avro.parse(schema)
 
