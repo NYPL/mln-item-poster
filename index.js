@@ -64,9 +64,10 @@ exports.kinesisHandler = function (records, context, callback) {
   // bulk posts records
   function postRecords (accessToken, records) {
     var options = {
-      uri: process.env['NYPL_API_POST_URL'],
+      uri: process.env['MLN_API_POST_URL'],
       method: 'POST',
-      headers: { Authorization: `Bearer ${accessToken}` },
+      // MLN application currently does not require NYPL OAUTH Authentication 
+      //headers: { Authorization: `Bearer ${accessToken}` },
       body: records,
       json: true
     }
