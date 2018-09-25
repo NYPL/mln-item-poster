@@ -10,6 +10,16 @@ deploy:
   script: npm run deploy-bib-development
   on:
     branch: set-up-lambda
+- provider: script
+  skip_cleanup: true
+  script: npm run deploy-bib-qa
+  on:
+    branch: qa
+- provider: script
+  skip_cleanup: true
+  script: npm run deploy-bib-production
+  on:
+    branch: master
 env:
   global:
   - secure: Rx1M/LV7aloabM9Dg/3ZCOsaw0zFVaM3BfAf5PY+6U5y0ujonOt13B7YKzJR/qjfYSlGmDXbI+eFYvFNexAqHje74R8ydFLHPbeaIOxVajEvrH+6ksun/YhDuPiNv04YqOEoOJQsuIEY2olhsqKRLSa+PVJxL4TSEd0/NlSwhZGQkk6rzTpX+IdUN9sbEa0ZKTzMIA+04FQ9a5RlQwTf58Tuo5qJ9AuB2k/3vgq3SOVnKcZsemya+jVka4hbm3HJsIy3616t/KnRltuwyvEKyay/wNiYSrzs72SbXTVl7jnFd2VhNY99o1GYb9tju0BZ7ya1rx5tipqfBXBywsdMKm7J7+KQAnFsLOdxL7ne/2zkVF9XPbofW2foLDnwqhOQAZiRUInSla928Sngrbd1xeylbyFj3BMPXlsvOakJVQuNWtu8YpZICYci4zaJYz+LksbqrUsk4q9WRudTuxSYeGRXHEziFNmMPPQYkLE9Ao1Ooc4MEauMsFK6TRjNwES7lLZ1TIQ3IpkO28mHA0V+7fsSLYa+588BAlXdyujsEugNduo50I9CkuRk4XC10CIJo+i4L3uOY4yIZVClxZgBLRdr9gNyh+pTjYwU3nMWK55o6vlHc9FKCCq3oh1Q1vhR1zBu6/nvKqVbGcdCqT1/vH0nxBvwHTT7h5013/2lHuA=
