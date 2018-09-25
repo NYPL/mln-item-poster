@@ -9,7 +9,7 @@ deploy:
   skip_cleanup: true
   script: npm run deploy-bib-development
   on:
-    branch: set-up-lambda
+    branch: development
 - provider: script
   skip_cleanup: true
   script: npm run deploy-bib-qa
