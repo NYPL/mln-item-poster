@@ -4,20 +4,22 @@ const Promise = require('promise')
 const request = require('request')
 const winston = require('winston')
 const awsDecrypt = require('./helper/awsDecrypt.js')
+const logger = require('./helper/logger.js')
+
 
 // Initialize cache
 var CACHE = {}
 
-const logger = new winston.Logger({
-  transports: [
-    new winston.transports.Console({
-      handleExceptions: true,
-      json: true,
-      stringify: true
-    })
-  ],
-  exitOnError: false
-})
+// const logger = new winston.Logger({
+//   transports: [
+//     new winston.transports.Console({
+//       handleExceptions: true,
+//       json: true,
+//       stringify: true
+//     })
+//   ],
+//   exitOnError: false
+// })
 
 logger.info({'message': 'Loading MLN Bib Poster'})
 
@@ -56,10 +58,16 @@ exports.kinesisHandler = function (records, context, callback) {
   function parseKinesis (payload, avroType) {
     logger.info({'message': 'Parsing Kinesis'})
       // decode base64
+    try{
+
     var buf = new Buffer(payload.kinesis.data, 'base64')
       // decode avro
     var record = avroType.fromBuffer(buf)
     return record
+    }
+    catch (err) {
+    logger.error("The following error appeared for parsing" + err)
+    }
   }
 
   // bulk posts records
@@ -176,7 +184,6 @@ exports.kinesisHandler = function (records, context, callback) {
 
 // main function
 exports.handler = function (event, context, callback) {
-  console.log(event)
   var record = event.Records[0]
   if (record.kinesis) {
     exports.kinesisHandler(event.Records, context, callback)
