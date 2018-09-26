@@ -3,6 +3,7 @@ const OAuth = require('oauth')
 const Promise = require('promise')
 const request = require('request')
 const winston = require('winston')
+const awsDecrypt = require('./helper/awsDecrypt.js')
 
 // Initialize cache
 var CACHE = {}
@@ -44,7 +45,7 @@ exports.kinesisHandler = function (records, context, callback) {
         })
       // post to API
       logger.info({'message': 'Posting records'})
-      postRecords(accessToken, records)
+      postRecords(records)
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
       callback(error)
@@ -62,7 +63,8 @@ exports.kinesisHandler = function (records, context, callback) {
   }
 
   // bulk posts records
-  function postRecords (accessToken, records) {
+  //function postRecords (accessToken, records) {
+  function postRecords (records) {
     var options = {
       uri: process.env['MLN_API_POST_URL'],
       method: 'POST',
@@ -148,20 +150,26 @@ exports.kinesisHandler = function (records, context, callback) {
     logger.info({'message': 'Requesting new token...'})
     return new Promise(function (resolve, reject) {
       var OAuth2 = OAuth.OAuth2
-      var key = process.env['NYPL_OAUTH_KEY']
-      var secret = process.env['NYPL_OAUTH_SECRET']
-      var url = process.env['NYPL_OAUTH_URL']
-      var auth = new OAuth2(key, secret, url, null, 'oauth/token', null)
-      auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function (error, accessToken, refreshToken, results) {
-        if (error) {
-          reject(error)
-          logger.error({'message': 'Not authenticated'})
-        } else {
-          logger.info({'message': 'Successfully authenticated'})
-          CACHE['accessToken'] = accessToken
-          resolve(accessToken)
-        }
-      })
+
+      var nyplOauthKey = awsDecrypt.decryptKMS(process.env['NYPL_OAUTH_KEY'])
+      var nyplOauthSecret = awsDecrypt.decryptKMS(process.env['NYPL_OAUTH_SECRET'])
+
+      Promise.all([nyplOauthKey, nyplOauthSecret])
+      .then((decryptedValues) => {
+        [nyplOauthKey, nyplOauthSecret] = decryptedValues;
+          var url = process.env['NYPL_OAUTH_URL']
+          var auth = new OAuth2(nyplOauthKey, nyplOauthSecret, url, null, 'oauth/token', null)
+          auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function (error, accessToken, refreshToken, results) {
+            if (error) {
+              reject(error)
+              logger.error({'message': 'Not authenticated'})
+            } else {
+              logger.info({'message': 'Successfully authenticated'})
+              CACHE['accessToken'] = accessToken
+              resolve(accessToken)
+            }
+          })
+        })
     })
   }
 }

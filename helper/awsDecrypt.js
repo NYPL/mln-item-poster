@@ -15,8 +15,7 @@ const decryptKMS = (key) => {
       if (err) {
         reject(err);
       } else {
-      	return data.Plaintext.toString();
-        //resolve(data.Plaintext.toString());
+        resolve(data.Plaintext.toString());
       }
     });
   });
