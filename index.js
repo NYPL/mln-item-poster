@@ -60,13 +60,15 @@ exports.kinesisHandler = function (records, context, callback) {
       // decode base64
     try{
 
+    console.log("I'm in the try")
     var buf = new Buffer(payload.kinesis.data, 'base64')
       // decode avro
     var record = avroType.fromBuffer(buf)
     return record
     }
     catch (err) {
-    logger.error({'message': "The following error appeared for parsing", 'error': err})
+    console.log("I'm in the catch portion of the code")
+    logger.error({'message': err.message, 'error': err})
     callback(null)
     }
   }
