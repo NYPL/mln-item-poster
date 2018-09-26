@@ -176,6 +176,7 @@ exports.kinesisHandler = function (records, context, callback) {
 
 // main function
 exports.handler = function (event, context, callback) {
+  console.log(event)
   var record = event.Records[0]
   if (record.kinesis) {
     exports.kinesisHandler(event.Records, context, callback)
