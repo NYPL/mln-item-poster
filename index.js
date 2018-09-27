@@ -64,6 +64,8 @@ exports.kinesisHandler = function (records, context, callback) {
     var buf = new Buffer(payload.kinesis.data, 'base64')
       // decode avro
     var record = avroType.fromBuffer(buf)
+        console.log(record)
+
     return record
     }
     catch (err) {
