@@ -47,10 +47,20 @@ exports.kinesisHandler = function (records, context, callback) {
         })
       // post to API
       logger.info({'message': 'Posting records'})
-      postRecords(records)
+
+      postRecords(records, isBibOrTeacherSet(records))
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
       callback(error)
+    }
+  }
+
+  function isBibOrTeacherSet(record){
+    if (record[0].materialType.value == 'TEACHER SET'){
+       return '/teacher_set'
+    }
+    else {
+       return '/book'
     }
   }
 
@@ -60,22 +70,13 @@ exports.kinesisHandler = function (records, context, callback) {
       // decode base64
     try{
 
-    console.log("I'm in the try")
-
-    console.log(payload)
     var buf = new Buffer(payload.kinesis.data, 'base64')
-
-    console.log("after buffer")
       // decode avro
     var record = avroType.fromBuffer(buf)
-
-    console.log("after record")
-        console.log(record)
 
     return record
     }
     catch (err) {
-    console.log("I'm in the catch portion of the code")
     logger.error({'message': err.message, 'error': err})
     callback(null)
     }
@@ -83,9 +84,9 @@ exports.kinesisHandler = function (records, context, callback) {
 
   // bulk posts records
   //function postRecords (accessToken, records) {
-  function postRecords (records) {
+  function postRecords (records, endpoint) {
     var options = {
-      uri: process.env['MLN_API_POST_URL'],
+      uri: process.env['MLN_API_URL'] + endpoint,
       method: 'POST',
       // MLN application currently does not require NYPL OAUTH Authentication 
       //headers: { Authorization: `Bearer ${accessToken}` },
