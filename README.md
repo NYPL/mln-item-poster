@@ -1,7 +1,6 @@
-# Discovery Bib/Item Poster
+# MyLibraryNYC Bib Poster
 
-This lambda should be deployed to two different lambdas.
-One to handle bibs, another for items. It reads those bibs or items from stream, then posts them to the bib or item service.
+This lambda currently listens to the AWS Bib/Item Kinesis Stream and sends POST requests to the MyLibraryNYC Rails applcation. 
 
 ## Setup
 

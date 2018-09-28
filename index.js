@@ -3,6 +3,9 @@ const OAuth = require('oauth')
 const Promise = require('promise')
 const request = require('request')
 const winston = require('winston')
+const awsDecrypt = require('./helper/awsDecrypt.js')
+// const logger = require('./helper/logger.js')
+
 
 // Initialize cache
 var CACHE = {}
@@ -18,7 +21,7 @@ const logger = new winston.Logger({
   exitOnError: false
 })
 
-logger.info({'message': 'Loading Discovery Poster'})
+logger.info({'message': 'Loading MLN Bib Poster'})
 
 // kinesis stream handler
 exports.kinesisHandler = function (records, context, callback) {
@@ -44,10 +47,20 @@ exports.kinesisHandler = function (records, context, callback) {
         })
       // post to API
       logger.info({'message': 'Posting records'})
-      postRecords(accessToken, records)
+
+      postRecords(records, isBibOrTeacherSet(records))
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
       callback(error)
+    }
+  }
+
+  function isBibOrTeacherSet(record){
+    if (record[0].materialType.value == 'TEACHER SET'){
+       return '/teacher_set'
+    }
+    else {
+       return '/book'
     }
   }
 
@@ -55,20 +68,28 @@ exports.kinesisHandler = function (records, context, callback) {
   function parseKinesis (payload, avroType) {
     logger.info({'message': 'Parsing Kinesis'})
       // decode base64
-    var buf = new Buffer(payload.kinesis.data, 'base64')
+    try{
 
+    var buf = new Buffer(payload.kinesis.data, 'base64')
       // decode avro
     var record = avroType.fromBuffer(buf)
 
     return record
+    }
+    catch (err) {
+    logger.error({'message': err.message, 'error': err})
+    callback(null)
+    }
   }
 
   // bulk posts records
-  function postRecords (accessToken, records) {
+  //function postRecords (accessToken, records) {
+  function postRecords (records, endpoint) {
     var options = {
-      uri: process.env['NYPL_API_POST_URL'],
+      uri: process.env['MLN_API_URL'] + endpoint,
       method: 'POST',
-      headers: { Authorization: `Bearer ${accessToken}` },
+      // MLN application currently does not require NYPL OAUTH Authentication 
+      //headers: { Authorization: `Bearer ${accessToken}` },
       body: records,
       json: true
     }
@@ -77,7 +98,6 @@ exports.kinesisHandler = function (records, context, callback) {
     request(options, function (error, response, body) {
       logger.info({'message': 'Posting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
-
       if (response.statusCode !== 200) {
         if (response.statusCode === 401) {
           // Clear access token so new one will be requested on retried request
@@ -150,20 +170,26 @@ exports.kinesisHandler = function (records, context, callback) {
     logger.info({'message': 'Requesting new token...'})
     return new Promise(function (resolve, reject) {
       var OAuth2 = OAuth.OAuth2
-      var key = process.env['NYPL_OAUTH_KEY']
-      var secret = process.env['NYPL_OAUTH_SECRET']
-      var url = process.env['NYPL_OAUTH_URL']
-      var auth = new OAuth2(key, secret, url, null, 'oauth/token', null)
-      auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function (error, accessToken, refreshToken, results) {
-        if (error) {
-          reject(error)
-          logger.error({'message': 'Not authenticated'})
-        } else {
-          logger.info({'message': 'Successfully authenticated'})
-          CACHE['accessToken'] = accessToken
-          resolve(accessToken)
-        }
-      })
+
+      var nyplOauthKey = awsDecrypt.decryptKMS(process.env['NYPL_OAUTH_KEY'])
+      var nyplOauthSecret = awsDecrypt.decryptKMS(process.env['NYPL_OAUTH_SECRET'])
+
+      Promise.all([nyplOauthKey, nyplOauthSecret])
+      .then((decryptedValues) => {
+        [nyplOauthKey, nyplOauthSecret] = decryptedValues;
+          var url = process.env['NYPL_OAUTH_URL']
+          var auth = new OAuth2(nyplOauthKey, nyplOauthSecret, url, null, 'oauth/token', null)
+          auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function (error, accessToken, refreshToken, results) {
+            if (error) {
+              reject(error)
+              logger.error({'message': 'Not authenticated'})
+            } else {
+              logger.info({'message': 'Successfully authenticated'})
+              CACHE['accessToken'] = accessToken
+              resolve(accessToken)
+            }
+          })
+        })
     })
   }
 }
