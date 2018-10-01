@@ -48,11 +48,9 @@ exports.kinesisHandler = function (records, context, callback) {
       // post to API
 
       if(records[0].deleted){
-        logger.info({'message': 'Deleting records'})
         deleteRecords(records)
       }
       else{
-        logger.info({'message': 'Posting records'})
         postRecords(records, isBibOrTeacherSet(records))
       }
 
@@ -82,6 +80,7 @@ exports.kinesisHandler = function (records, context, callback) {
       // decode avro
     var record = avroType.fromBuffer(buf)
 
+    logger.info({'message': `Parsed output: ${record}` })
     return record
     }
     catch (err) {
@@ -93,6 +92,7 @@ exports.kinesisHandler = function (records, context, callback) {
   // bulk posts records
   //function postRecords (accessToken, records) {
   function postRecords (records, endpoint) {
+    logger.info({'message': 'Posting records'})
     var options = {
       uri: process.env['MLN_API_URL'] + endpoint,
       method: 'POST',
@@ -107,32 +107,17 @@ exports.kinesisHandler = function (records, context, callback) {
       logger.info({'message': 'Posting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
       if (response.statusCode !== 200) {
-        if (response.statusCode === 401) {
-          // Clear access token so new one will be requested on retried request
-          CACHE['accessToken'] = null
-        }
-
         callback(new Error())
         logger.error({'message': 'POST Error! ', 'response': response})
         return
       }
-
-      if (error) {
-        callback(new Error())
-        logger.error({'message': 'POST Error! ', 'error': error})
-        return
-      }
-
-      if (body.errors && body.errors.length) {
-        logger.info({'message': 'Data error: ' + body.errors})
-      }
-
       logger.info({'message': 'POST Success'})
     })
   }
 
 
   function deleteRecords(record){
+    logger.info({'message': 'Deleting records'})
     var options = {
       uri: process.env['MLN_API_URL'] + '/teacher_set',
       method: 'DELETE',
@@ -145,24 +130,10 @@ exports.kinesisHandler = function (records, context, callback) {
       logger.info({'message': 'Deleting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
       if (response.statusCode !== 200) {
-        if (response.statusCode === 401) {
-          // Clear access token so new one will be requested on retried request
-          CACHE['accessToken'] = null
-        }
-
+     
         callback(new Error())
         logger.error({'message': 'DELETE Error! ', 'response': response})
         return
-      }
-
-      if (error) {
-        callback(new Error())
-        logger.error({'message': 'DELETE Error! ', 'error': error})
-        return
-      }
-
-      if (body.errors && body.errors.length) {
-        logger.info({'message': 'Data error: ' + body.errors})
       }
 
       logger.info({'message': 'DELETE Success'})
