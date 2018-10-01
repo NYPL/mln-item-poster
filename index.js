@@ -50,7 +50,7 @@ exports.kinesisHandler = function (records, context, callback) {
       updateCreateRecordsArray = []
       deletedRecordsArray = []
 
-      records.map(function(record){
+      records.forEach(function(record){
         if(record.deleted){
           deletedRecordsArray.push(record)
         } else {
@@ -91,7 +91,7 @@ exports.kinesisHandler = function (records, context, callback) {
   function postRecords (records) {
     logger.info({'message': 'Posting records'})
     var options = {
-      uri: process.env['MLN_API_URL'],
+      uri: process.env['MLN_API_URL'] + '/teacher_set' ,
       method: 'POST',
       // MLN application currently does not require NYPL OAUTH Authentication 
       //headers: { Authorization: `Bearer ${accessToken}` },
@@ -127,7 +127,6 @@ exports.kinesisHandler = function (records, context, callback) {
       logger.info({'message': 'Deleting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
       if (response.statusCode !== 200) {
-     
         callback(new Error())
         logger.error({'message': 'DELETE Error! ', 'response': response})
         return
