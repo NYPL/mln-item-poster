@@ -47,28 +47,25 @@ exports.kinesisHandler = function (records, context, callback) {
         })
       // post to API
 
-      if(records[0].deleted){
-        deleteRecords(records)
-      }
-      else{
-        postRecords(records, isBibOrTeacherSet(records))
-      }
+      updateCreateRecordsArray = []
+      deletedRecordsArray = []
+
+      records.map(function(record){
+        if(record.deleted){
+          deletedRecordsArray.push(record)
+        } else {
+          updateCreateRecordsArray.push(record)
+        }
+      })
+
+      if (updateCreateRecordsArray.length != 0) postRecords(records)
+      if (deletedRecordsArray.length != 0) deleteRecords(records)
 
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
       callback(error)
     }
   }
-
-  function isBibOrTeacherSet(record){
-    if (record[0].materialType.value == 'TEACHER SET'){
-       return '/teacher_set'
-    }
-    else {
-       return '/book'
-    }
-  }
-
   
   // map to records objects as needed
   function parseKinesis (payload, avroType) {
@@ -91,10 +88,10 @@ exports.kinesisHandler = function (records, context, callback) {
 
   // bulk posts records
   //function postRecords (accessToken, records) {
-  function postRecords (records, endpoint) {
+  function postRecords (records) {
     logger.info({'message': 'Posting records'})
     var options = {
-      uri: process.env['MLN_API_URL'] + endpoint,
+      uri: process.env['MLN_API_URL'],
       method: 'POST',
       // MLN application currently does not require NYPL OAUTH Authentication 
       //headers: { Authorization: `Bearer ${accessToken}` },
