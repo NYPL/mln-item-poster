@@ -91,7 +91,7 @@ exports.kinesisHandler = function (records, context, callback) {
   function postRecords (records) {
     logger.info({'message': 'Posting records'})
     var options = {
-      uri: process.env['MLN_API_URL'] + '/teacher_set' ,
+      uri: process.env['MLN_API_URL'],
       method: 'POST',
       // MLN application currently does not require NYPL OAUTH Authentication 
       //headers: { Authorization: `Bearer ${accessToken}` },
@@ -116,7 +116,7 @@ exports.kinesisHandler = function (records, context, callback) {
   function deleteRecords(record){
     logger.info({'message': 'Deleting records'})
     var options = {
-      uri: process.env['MLN_API_URL'] + '/teacher_set',
+      uri: process.env['MLN_API_URL'],
       method: 'DELETE',
       // MLN application currently does not require NYPL OAUTH Authentication 
       //headers: { Authorization: `Bearer ${accessToken}` },
