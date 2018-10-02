@@ -46,24 +46,27 @@ exports.kinesisHandler = function (records, context, callback) {
           return parseKinesis(record, avroType)
         })
       // post to API
-      logger.info({'message': 'Posting records'})
 
-      postRecords(records, isBibOrTeacherSet(records))
+      updateCreateRecordsArray = []
+      deletedRecordsArray = []
+
+      records.forEach(function(record){
+        if(record.deleted){
+          deletedRecordsArray.push(record)
+        } else {
+          updateCreateRecordsArray.push(record)
+        }
+      })
+
+      if (updateCreateRecordsArray.length != 0) postRecords(records)
+      if (deletedRecordsArray.length != 0) deleteRecords(records)
+
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
       callback(error)
     }
   }
-
-  function isBibOrTeacherSet(record){
-    if (record[0].materialType.value == 'TEACHER SET'){
-       return '/teacher_set'
-    }
-    else {
-       return '/book'
-    }
-  }
-
+  
   // map to records objects as needed
   function parseKinesis (payload, avroType) {
     logger.info({'message': 'Parsing Kinesis'})
@@ -74,6 +77,7 @@ exports.kinesisHandler = function (records, context, callback) {
       // decode avro
     var record = avroType.fromBuffer(buf)
 
+    logger.info({'message': `Parsed output: ${record}` })
     return record
     }
     catch (err) {
@@ -84,9 +88,10 @@ exports.kinesisHandler = function (records, context, callback) {
 
   // bulk posts records
   //function postRecords (accessToken, records) {
-  function postRecords (records, endpoint) {
+  function postRecords (records) {
+    logger.info({'message': 'Posting records'})
     var options = {
-      uri: process.env['MLN_API_URL'] + endpoint,
+      uri: process.env['MLN_API_URL'],
       method: 'POST',
       // MLN application currently does not require NYPL OAUTH Authentication 
       //headers: { Authorization: `Bearer ${accessToken}` },
@@ -99,27 +104,35 @@ exports.kinesisHandler = function (records, context, callback) {
       logger.info({'message': 'Posting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
       if (response.statusCode !== 200) {
-        if (response.statusCode === 401) {
-          // Clear access token so new one will be requested on retried request
-          CACHE['accessToken'] = null
-        }
-
         callback(new Error())
         logger.error({'message': 'POST Error! ', 'response': response})
         return
       }
+      logger.info({'message': 'POST Success'})
+    })
+  }
 
-      if (error) {
+
+  function deleteRecords(record){
+    logger.info({'message': 'Deleting records'})
+    var options = {
+      uri: process.env['MLN_API_URL'],
+      method: 'DELETE',
+      // MLN application currently does not require NYPL OAUTH Authentication 
+      //headers: { Authorization: `Bearer ${accessToken}` },
+      body: records,
+      json: true
+    }
+    request(options, function (error, response, body) {
+      logger.info({'message': 'Deleting...'})
+      logger.info({'message': 'Response: ' + response.statusCode})
+      if (response.statusCode !== 200) {
         callback(new Error())
-        logger.error({'message': 'POST Error! ', 'error': error})
+        logger.error({'message': 'DELETE Error! ', 'response': response})
         return
       }
 
-      if (body.errors && body.errors.length) {
-        logger.info({'message': 'Data error: ' + body.errors})
-      }
-
-      logger.info({'message': 'POST Success'})
+      logger.info({'message': 'DELETE Success'})
     })
   }
 
