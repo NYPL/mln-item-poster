@@ -77,7 +77,7 @@ exports.kinesisHandler = function (records, context, callback) {
       // decode avro
     var record = avroType.fromBuffer(buf)
 
-    logger.info({'message': `Parsed output: ${record}` })
+    logger.info({'message':  'Parsed Data' , 'data': record })
     return record
     }
     catch (err) {
