@@ -53,7 +53,8 @@ exports.kinesisHandler = function (records, context, callback) {
       records.forEach(function(record){
         if(record.deleted){
           deletedRecordsArray.push(record)
-        } else {
+        } 
+        if(record.materialType.value == "TEACHER SET"){
           updateCreateRecordsArray.push(record)
         }
       })
