@@ -44,7 +44,7 @@ const nyplLogLevels = {
 
  var logger = new (winston.Logger)({
     transports: [
-      new (winston.transports.Console)()
+      new (winston.transports.Console)({json: true})
      // new (winston.transports.File)({ filename: 'somefile.log'}),
     ]
   });
