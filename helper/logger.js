@@ -1,7 +1,5 @@
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, prettyPrint } = format;
-// Suppress error handling
-// winston.emitErrs = true;
 
 // Set default NYPL agreed upon log levels
 const nyplLogLevels = {
@@ -17,79 +15,14 @@ const nyplLogLevels = {
   },
 };
 
-// const getLogLevelCode = (levelString) => {
-//   switch (levelString) {
-//     case 'emergency':
-//       return 0;
-//     case 'alert':
-//       return 1;
-//     case 'critical':
-//       return 2;
-//     case 'error':
-//       return 3;
-//     case 'warning':
-//       return 4;
-//     case 'notice':
-//       return 5;
-//     case 'info':
-//       return 6;
-//     case 'debug':
-//       return 7;
-//     default:
-//       return 'n/a';
-//   }
-// };
-
-
 const logger = createLogger({
   levels: nyplLogLevels.levels, 
   format: combine(
     timestamp(),
     format.json()
   ),
+  exitOnError: false,
   transports: [new transports.Console()]
 })
 
-
-// logger.setLevels(nyplLogLevels.levels)
-
-// const loggerTransports = [];
-// if (process.env.NODE_ENV !== 'test') {
-//   loggerTransports.push(
-//     new winston.transports.Console({
-//       timestamp: () => new Date().toISOString(),
-//       formatter: (options) => {
-//         console.log(options)
-//         const result = {
-//           timestamp: options.timestamp(),
-//           levelCode: getLogLevelCode(options.level),
-//           level: options.level.toUpperCase(),
-//           message: options.message.toString(),
-//         };
-
-//         if (process.pid) {
-//           result.pid = process.pid.toString();
-//         }
-
-//         if (options.meta) {
-//           result.meta = JSON.stringify(options.meta);
-//         }
-
-//         return JSON.stringify(result);
-//       },
-//     }) // eslint-disable-line comma-dangle
-//   );
-// }
-
-
-
-
-// const logger = new (winston.Logger)({
-//   levels: nyplLogLevels.levels,
-//   transports: loggerTransports,
-//   exitOnError: false,
-// });
-
-// // set the logger output level to one specified in the environment config
-// logger.level = process.env.LOG_LEVEL;
 module.exports = logger;
