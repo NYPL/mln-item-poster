@@ -44,9 +44,8 @@ const nyplLogLevels = {
 const logger = createLogger({
   levels: nyplLogLevels.levels, 
   format: combine(
-    label({ label: 'right meow!' }),
     timestamp(),
-    prettyPrint()
+    format.json()
   ),
   transports: [new transports.Console()]
 })
