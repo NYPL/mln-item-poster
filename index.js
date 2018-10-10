@@ -4,23 +4,14 @@ const Promise = require('promise')
 const request = require('request')
 const winston = require('winston')
 const awsDecrypt = require('./helper/awsDecrypt.js')
-// const logger = require('./helper/logger.js')
+const logger = require('./helper/logger.js')
 
 
 // Initialize cache
 var CACHE = {}
 
-const logger = new winston.Logger({
-  transports: [
-    new winston.transports.Console({
-      handleExceptions: true,
-      json: true,
-      stringify: true
-    })
-  ],
-  exitOnError: false
-})
 
+logger.critical({message: 'asdasdasdasdsa', testing: 1234})
 logger.info({'message': 'Loading MLN Bib Poster'})
 
 // kinesis stream handler
