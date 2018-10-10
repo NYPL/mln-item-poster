@@ -11,7 +11,7 @@ const logger = require('./helper/logger.js')
 var CACHE = {}
 
 
-logger.critical({message: 'asdasdasdasdsa', testing: 1234})
+logger.critical({ message: 'asdasdasdasdsa', testing: 1234})
 logger.info({'message': 'Loading MLN Bib Poster'})
 
 // kinesis stream handler
