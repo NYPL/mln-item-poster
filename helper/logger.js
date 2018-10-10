@@ -1,7 +1,5 @@
-const winston = require('winston');
-
-
-
+const { createLogger, format, transports } = require('winston');
+const { combine, timestamp, label, prettyPrint } = format;
 // Suppress error handling
 // winston.emitErrs = true;
 
@@ -42,14 +40,19 @@ const nyplLogLevels = {
 //   }
 // };
 
- var logger = new (winston.Logger)({
-    transports: [
-      new (winston.transports.Console)({json: true})
-     // new (winston.transports.File)({ filename: 'somefile.log'}),
-    ]
-  });
 
-logger.setLevels(nyplLogLevels.levels)
+const logger = createLogger({
+  levels: nyplLogLevels.levels, 
+  format: combine(
+    label({ label: 'right meow!' }),
+    timestamp(),
+    prettyPrint()
+  ),
+  transports: [new transports.Console()]
+})
+
+
+// logger.setLevels(nyplLogLevels.levels)
 
 // const loggerTransports = [];
 // if (process.env.NODE_ENV !== 'test') {
