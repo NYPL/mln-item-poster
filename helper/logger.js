@@ -15,10 +15,17 @@ const nyplLogLevels = {
   },
 };
 
+//Capitlizes the log level key
+const upCaseLogLevels = format((info, opts) => {
+  info.level = info.level.toUpperCase()
+  return info
+});
+
 const logger = createLogger({
   levels: nyplLogLevels.levels, 
   format: combine(
     timestamp(),
+    upCaseLogLevels(),
     format.json()
   ),
   exitOnError: false,
