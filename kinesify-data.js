@@ -13,6 +13,7 @@ const outfile = args[1]
 const schemaUrl = args[2]
 
 function onSchemaLoad(schema){
+
   // initialize avro schema
   var avroType = avro.parse(schema)
 

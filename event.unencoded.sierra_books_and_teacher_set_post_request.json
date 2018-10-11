@@ -1,0 +1,2631 @@
+{
+  "Records": [
+    {
+      "id": "17746307",
+      "nyplSource": "sierra-nypl",
+      "nyplType": "bib",
+      "updatedDate": "2018-09-19T12:00:45-04:00",
+      "createdDate": "2008-12-24T03:16:00-05:00",
+      "deletedDate": null,
+      "deleted": false,
+      "locations": [
+        {
+          "code": "fe",
+          "name": "58th Street"
+        },
+        {
+          "code": "fej",
+          "name": "58th Street Children"
+        },
+        {
+          "code": "ssj",
+          "name": "67th Street Children"
+        },
+        {
+          "code": "nsj",
+          "name": "96th Street Children"
+        },
+        {
+          "code": "huj",
+          "name": "115th Street Children"
+        },
+        {
+          "code": "hdj",
+          "name": "125th Street Children"
+        },
+        {
+          "code": "alj",
+          "name": "Allerton Children"
+        },
+        {
+          "code": "baj",
+          "name": "Baychester Children"
+        },
+        {
+          "code": "bcj",
+          "name": "Bronx Library Center Children"
+        },
+        {
+          "code": "bej",
+          "name": "Belmont Children"
+        },
+        {
+          "code": "blj",
+          "name": "Bloomingdale Children"
+        },
+        {
+          "code": "brj",
+          "name": "George Bruce Children"
+        },
+        {
+          "code": "btj",
+          "name": "Battery Park Children"
+        },
+        {
+          "code": "chj",
+          "name": "Chatham Square Children"
+        },
+        {
+          "code": "cij",
+          "name": "City Island Children"
+        },
+        {
+          "code": "clj",
+          "name": "Morningside Heights Children"
+        },
+        {
+          "code": "cpj",
+          "name": "Clason's Point Children "
+        },
+        {
+          "code": "csj",
+          "name": "Columbus Children"
+        },
+        {
+          "code": "ctj",
+          "name": "Castle Hill Children"
+        },
+        {
+          "code": "dhj",
+          "name": "Dongan Hills Children "
+        },
+        {
+          "code": "dyj",
+          "name": "Spuyten Duyvil Children"
+        },
+        {
+          "code": "eaj",
+          "name": "Eastchester Children"
+        },
+        {
+          "code": "ed",
+          "name": "LSC Educator Collection"
+        },
+        {
+          "code": "epj",
+          "name": "Epiphany Children"
+        },
+        {
+          "code": "ewj",
+          "name": "Edenwald Children"
+        },
+        {
+          "code": "fwj",
+          "name": "Fort Washington Children"
+        },
+        {
+          "code": "fxj",
+          "name": "Francis Martin Children"
+        },
+        {
+          "code": "gcj",
+          "name": "Grand Central Children"
+        },
+        {
+          "code": "gdj",
+          "name": "Grand Concourse Children"
+        },
+        {
+          "code": "gkj",
+          "name": "Great Kills Children"
+        },
+        {
+          "code": "hbj",
+          "name": "High Bridge Children"
+        },
+        {
+          "code": "hf",
+          "name": "Hamilton Fish Park"
+        },
+        {
+          "code": "hfj",
+          "name": "Hamilton Fish Park Children"
+        },
+        {
+          "code": "hgj",
+          "name": "Hamilton Grange Children"
+        },
+        {
+          "code": "hkj",
+          "name": "Huguenot Park Children "
+        },
+        {
+          "code": "hlj",
+          "name": "Harlem Children"
+        },
+        {
+          "code": "hpj",
+          "name": "Hudson Park Children"
+        },
+        {
+          "code": "hsj",
+          "name": "Hunt's Point Children"
+        },
+        {
+          "code": "htj",
+          "name": "Countee Cullen Children"
+        },
+        {
+          "code": "inj",
+          "name": "Inwood Children"
+        },
+        {
+          "code": "jmj",
+          "name": "Jefferson Market Children"
+        },
+        {
+          "code": "jpj",
+          "name": "Jerome Park Children"
+        },
+        {
+          "code": "kbj",
+          "name": "Kingsbridge Children"
+        },
+        {
+          "code": "kpj",
+          "name": "Kips Bay Children"
+        },
+        {
+          "code": "lmj",
+          "name": "New Amsterdam Children"
+        },
+        {
+          "code": "mbj",
+          "name": "Macomb's Bridge Children"
+        },
+        {
+          "code": "mej",
+          "name": "Melrose Children"
+        },
+        {
+          "code": "mhj",
+          "name": "Mott Haven Children"
+        },
+        {
+          "code": "mlj",
+          "name": "Mulberry Street Children"
+        },
+        {
+          "code": "mmj",
+          "name": "Mid-Manhattan Children"
+        },
+        {
+          "code": "mnj",
+          "name": "Mariner's Harbor Children"
+        },
+        {
+          "code": "moj",
+          "name": "Mosholu Children"
+        },
+        {
+          "code": "mpj",
+          "name": "Morris Park Children"
+        },
+        {
+          "code": "mrj",
+          "name": "Morrisania Children"
+        },
+        {
+          "code": "muj",
+          "name": "Muhlenberg Children"
+        },
+        {
+          "code": "nbj",
+          "name": "West New Brighton Children"
+        },
+        {
+          "code": "ndj",
+          "name": "New Dorp Children"
+        },
+        {
+          "code": "otj",
+          "name": "Ottendorfer Children"
+        },
+        {
+          "code": "pkj",
+          "name": "Parkchester Children"
+        },
+        {
+          "code": "pmj",
+          "name": "Pelham Bay Children"
+        },
+        {
+          "code": "pr",
+          "name": "Port Richmond"
+        },
+        {
+          "code": "prj",
+          "name": "Port Richmond Children"
+        },
+        {
+          "code": "rdj",
+          "name": "Riverdale Children"
+        },
+        {
+          "code": "rij",
+          "name": "Roosevelt Island Children"
+        },
+        {
+          "code": "rsj",
+          "name": "Riverside Children"
+        },
+        {
+          "code": "rtj",
+          "name": "Richmondtown Children"
+        },
+        {
+          "code": "saj",
+          "name": "St. Agnes Children"
+        },
+        {
+          "code": "sbj",
+          "name": "South Beach Children"
+        },
+        {
+          "code": "sd",
+          "name": "Sedgwick"
+        },
+        {
+          "code": "sdj",
+          "name": "Sedgwick Children"
+        },
+        {
+          "code": "sej",
+          "name": "Seward Park Children"
+        },
+        {
+          "code": "sgj",
+          "name": "St. George Children"
+        },
+        {
+          "code": "stj",
+          "name": "Stapleton Children"
+        },
+        {
+          "code": "svj",
+          "name": "Soundview Children"
+        },
+        {
+          "code": "tgj",
+          "name": "Throg's Neck Children"
+        },
+        {
+          "code": "thj",
+          "name": "Todt Hill-Westerleigh Children"
+        },
+        {
+          "code": "tmj",
+          "name": "Tremont Children"
+        },
+        {
+          "code": "tsj",
+          "name": "Tompkins Square Children"
+        },
+        {
+          "code": "tvj",
+          "name": "Tottenville Children"
+        },
+        {
+          "code": "vcj",
+          "name": "Van Cortlandt Children"
+        },
+        {
+          "code": "wbj",
+          "name": "Webster Children"
+        },
+        {
+          "code": "wfj",
+          "name": "West Farms Children"
+        },
+        {
+          "code": "whj",
+          "name": "Washington Heights Children"
+        },
+        {
+          "code": "wkj",
+          "name": "Wakefield Children"
+        },
+        {
+          "code": "wlj",
+          "name": "Woodlawn Heights Children"
+        },
+        {
+          "code": "wtj",
+          "name": "Westchester Square Children"
+        },
+        {
+          "code": "yvj",
+          "name": "Yorkville Children"
+        },
+        {
+          "code": "maj",
+          "name": "SASB - Children's Center Rm 84"
+        },
+        {
+          "code": "mal",
+          "name": "SASB - Service Desk Rm 315"
+        },
+        {
+          "code": "ccj",
+          "name": "SASB - Children's Center Rm 84"
+        }
+      ],
+      "suppressed": false,
+      "lang": {
+        "code": "eng",
+        "name": "English"
+      },
+      "title": "Harry Potter and the Chamber of Secrets",
+      "author": "Rowling, J. K.",
+      "materialType": {
+        "code": "a",
+        "value": "BOOK/TEXT"
+      },
+      "bibLevel": {
+        "code": "m",
+        "value": "MONOGRAPH"
+      },
+      "publishYear": 1999,
+      "catalogDate": "2013-03-20",
+      "country": {
+        "code": "nyu",
+        "name": "New York (State)"
+      },
+      "normTitle": "harry potter and the chamber of secrets",
+      "normAuthor": "rowling j k",
+      "standardNumbers": [
+        "0439064864",
+        "9780439064866"
+      ],
+      "controlNumber": "40043650",
+      "fixedFields": {
+        "24": {
+          "label": "Language",
+          "value": "eng",
+          "display": "English"
+        },
+        "25": {
+          "label": "Skip",
+          "value": "0",
+          "display": null
+        },
+        "26": {
+          "label": "Location",
+          "value": "multi",
+          "display": null
+        },
+        "27": {
+          "label": "COPIES",
+          "value": "259",
+          "display": null
+        },
+        "28": {
+          "label": "Cat. Date",
+          "value": "2013-03-20",
+          "display": null
+        },
+        "29": {
+          "label": "Bib Level",
+          "value": "m",
+          "display": "MONOGRAPH"
+        },
+        "30": {
+          "label": "Material Type",
+          "value": "a",
+          "display": "BOOK/TEXT"
+        },
+        "31": {
+          "label": "Bib Code 3",
+          "value": "a",
+          "display": null
+        },
+        "80": {
+          "label": "Record Type",
+          "value": "b",
+          "display": null
+        },
+        "81": {
+          "label": "Record Number",
+          "value": "17746307",
+          "display": null
+        },
+        "83": {
+          "label": "Created Date",
+          "value": "2008-12-24T03:16:00Z",
+          "display": null
+        },
+        "84": {
+          "label": "Updated Date",
+          "value": "2018-09-19T12:00:45Z",
+          "display": null
+        },
+        "85": {
+          "label": "No. of Revisions",
+          "value": "4751",
+          "display": null
+        },
+        "86": {
+          "label": "Agency",
+          "value": "1",
+          "display": null
+        },
+        "89": {
+          "label": "Country",
+          "value": "nyu",
+          "display": "New York (State)"
+        },
+        "98": {
+          "label": "PDATE",
+          "value": "2018-07-26T15:04:36Z",
+          "display": null
+        },
+        "107": {
+          "label": "MARC Type",
+          "value": " ",
+          "display": null
+        }
+      },
+      "varFields": [
+        {
+          "fieldTag": "a",
+          "marcTag": "100",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Rowling, J. K."
+            }
+          ]
+        },
+        {
+          "fieldTag": "b",
+          "marcTag": "700",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "GrandPré, Mary,"
+            },
+            {
+              "tag": "e",
+              "content": "ill."
+            }
+          ]
+        },
+        {
+          "fieldTag": "c",
+          "marcTag": "091",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "p",
+              "content": "J"
+            },
+            {
+              "tag": "a",
+              "content": "FIC"
+            },
+            {
+              "tag": "c",
+              "content": "ROWLING"
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Wizards"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Magic"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Schools"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Hogwarts School of Witchcraft and Wizardry (Imaginary organization)"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "600",
+          "ind1": "1",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Potter, Harry"
+            },
+            {
+              "tag": "c",
+              "content": "(Fictitious character)"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Orphans"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Aunts"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Uncles"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Cousins"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Determination (Personality trait) in children"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Friendship"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "651",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "England"
+            },
+            {
+              "tag": "v",
+              "content": "Fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "655",
+          "ind1": " ",
+          "ind2": "7",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Fantasy fiction."
+            },
+            {
+              "tag": "2",
+              "content": "lcgft"
+            }
+          ]
+        },
+        {
+          "fieldTag": "i",
+          "marcTag": "020",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "0439064864 (hardcover)"
+            }
+          ]
+        },
+        {
+          "fieldTag": "i",
+          "marcTag": "020",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "9780439064866 (hardcover)"
+            }
+          ]
+        },
+        {
+          "fieldTag": "l",
+          "marcTag": "010",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "   98046370"
+            }
+          ]
+        },
+        {
+          "fieldTag": "l",
+          "marcTag": "035",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "(OCoLC)40043650"
+            },
+            {
+              "tag": "z",
+              "content": "(OCoLC)57375948"
+            },
+            {
+              "tag": "z",
+              "content": "(OCoLC)179223704"
+            },
+            {
+              "tag": "z",
+              "content": "(OCoLC)307589789"
+            }
+          ]
+        },
+        {
+          "fieldTag": "n",
+          "marcTag": "500",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Sequel to: Harry Potter and the sorcerer's stone."
+            }
+          ]
+        },
+        {
+          "fieldTag": "n",
+          "marcTag": "500",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Sequel: Harry Potter and the prisoner of Azkaban."
+            }
+          ]
+        },
+        {
+          "fieldTag": "n",
+          "marcTag": "500",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "\"Year 2\"--Spine."
+            }
+          ]
+        },
+        {
+          "fieldTag": "n",
+          "marcTag": "520",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "When the Chamber of Secrets is opened again at the Hogwarts School for Witchcraft and Wizardry, second-year student Harry Potter finds himself in danger from a dark power that has once more been released on the school."
+            }
+          ]
+        },
+        {
+          "fieldTag": "o",
+          "marcTag": "001",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "40043650 ",
+          "subfields": null
+        },
+        {
+          "fieldTag": "p",
+          "marcTag": "260",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "New York :"
+            },
+            {
+              "tag": "b",
+              "content": "Arthur A. Levine Books,"
+            },
+            {
+              "tag": "c",
+              "content": "1999."
+            }
+          ]
+        },
+        {
+          "fieldTag": "r",
+          "marcTag": "300",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "viii, 341 p. :"
+            },
+            {
+              "tag": "b",
+              "content": "ill. ;"
+            },
+            {
+              "tag": "c",
+              "content": "24 cm."
+            }
+          ]
+        },
+        {
+          "fieldTag": "s",
+          "marcTag": "490",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Rowlling ;"
+            },
+            {
+              "tag": "v",
+              "content": "book 2."
+            }
+          ]
+        },
+        {
+          "fieldTag": "s",
+          "marcTag": "800",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Rowling, J. K."
+            },
+            {
+              "tag": "t",
+              "content": "Harry Potter [series] ;"
+            },
+            {
+              "tag": "v",
+              "content": "v. 2."
+            }
+          ]
+        },
+        {
+          "fieldTag": "t",
+          "marcTag": "245",
+          "ind1": "1",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Harry Potter and the Chamber of Secrets /"
+            },
+            {
+              "tag": "c",
+              "content": "by J.K. Rowling ; illustrations by Mary GrandPré."
+            }
+          ]
+        },
+        {
+          "fieldTag": "v",
+          "marcTag": "995",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "1392427"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "003",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "OCoLC",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "005",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "20100427222125.0",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "008",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "980928s1999    nyua   c      000 1 eng  cam a ",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "040",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "DLC"
+            },
+            {
+              "tag": "c",
+              "content": "DLC"
+            },
+            {
+              "tag": "d",
+              "content": "XY4"
+            },
+            {
+              "tag": "d",
+              "content": "BAKER"
+            },
+            {
+              "tag": "d",
+              "content": "CBC"
+            },
+            {
+              "tag": "d",
+              "content": "YDXCP"
+            },
+            {
+              "tag": "d",
+              "content": "BTCTA"
+            },
+            {
+              "tag": "d",
+              "content": "IG#"
+            },
+            {
+              "tag": "d",
+              "content": "LSH"
+            },
+            {
+              "tag": "d",
+              "content": "MNF"
+            },
+            {
+              "tag": "d",
+              "content": "CRU"
+            },
+            {
+              "tag": "d",
+              "content": "PUL"
+            },
+            {
+              "tag": "d",
+              "content": "UBY"
+            },
+            {
+              "tag": "d",
+              "content": "CUV"
+            },
+            {
+              "tag": "d",
+              "content": "OCLCA"
+            },
+            {
+              "tag": "d",
+              "content": "ALEML"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "042",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "lcac"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "043",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "e-uk-en"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "050",
+          "ind1": "0",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "PZ7.R79835"
+            },
+            {
+              "tag": "b",
+              "content": "Haj 1999"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "082",
+          "ind1": "0",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "[Fic]"
+            },
+            {
+              "tag": "2",
+              "content": "21"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "908",
+          "ind1": "0",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "PZ7.R79835"
+            },
+            {
+              "tag": "b",
+              "content": "Haj 1999"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "901",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "INGRAMD131010-9"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "945",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": ".o17309852"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "901",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "INGRAMD131007-30"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "945",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": ".o17195986"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "945",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": ".o16559447"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "901",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "csl"
+            },
+            {
+              "tag": "a",
+              "content": "BTCLSD"
+            },
+            {
+              "tag": "a",
+              "content": "BTLOAD10-09-08"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "945",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": ".o16440705"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "945",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": ".o14069957"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "969",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "DOE migration record (2011)."
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "901",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "BTCLS"
+            }
+          ]
+        },
+        {
+          "fieldTag": "_",
+          "marcTag": null,
+          "ind1": null,
+          "ind2": null,
+          "content": "00000cam  2200625 a 4500",
+          "subfields": null
+        }
+      ]
+    },
+    {
+      "id": "20028046",
+      "nyplSource": "sierra-nypl",
+      "nyplType": "bib",
+      "updatedDate": "2018-09-20T01:25:06-04:00",
+      "createdDate": "2014-02-03T15:44:00-05:00",
+      "deletedDate": null,
+      "deleted": false,
+      "locations": [
+        {
+          "code": "ftj",
+          "name": "53rd Street Children"
+        },
+        {
+          "code": "fej",
+          "name": "58th Street Children"
+        },
+        {
+          "code": "ssj",
+          "name": "67th Street Children"
+        },
+        {
+          "code": "nsj",
+          "name": "96th Street Children"
+        },
+        {
+          "code": "huj",
+          "name": "115th Street Children"
+        },
+        {
+          "code": "hdj",
+          "name": "125th Street Children"
+        },
+        {
+          "code": "agj",
+          "name": "Aguilar Children "
+        },
+        {
+          "code": "alj",
+          "name": "Allerton Children"
+        },
+        {
+          "code": "baj",
+          "name": "Baychester Children"
+        },
+        {
+          "code": "bcj",
+          "name": "Bronx Library Center Children"
+        },
+        {
+          "code": "bej",
+          "name": "Belmont Children"
+        },
+        {
+          "code": "blj",
+          "name": "Bloomingdale Children"
+        },
+        {
+          "code": "brj",
+          "name": "George Bruce Children"
+        },
+        {
+          "code": "btj",
+          "name": "Battery Park Children"
+        },
+        {
+          "code": "caj",
+          "name": "Terence Cardinal Cooke-Cathedral Children"
+        },
+        {
+          "code": "chj",
+          "name": "Chatham Square Children"
+        },
+        {
+          "code": "cij",
+          "name": "City Island Children"
+        },
+        {
+          "code": "clj",
+          "name": "Morningside Heights Children"
+        },
+        {
+          "code": "cpj",
+          "name": "Clason's Point Children "
+        },
+        {
+          "code": "csj",
+          "name": "Columbus Children"
+        },
+        {
+          "code": "ctj",
+          "name": "Castle Hill Children"
+        },
+        {
+          "code": "dhj",
+          "name": "Dongan Hills Children "
+        },
+        {
+          "code": "dyj",
+          "name": "Spuyten Duyvil Children"
+        },
+        {
+          "code": "eaj",
+          "name": "Eastchester Children"
+        },
+        {
+          "code": "epj",
+          "name": "Epiphany Children"
+        },
+        {
+          "code": "ewj",
+          "name": "Edenwald Children"
+        },
+        {
+          "code": "fwj",
+          "name": "Fort Washington Children"
+        },
+        {
+          "code": "fxj",
+          "name": "Francis Martin Children"
+        },
+        {
+          "code": "gcj",
+          "name": "Grand Central Children"
+        },
+        {
+          "code": "gdj",
+          "name": "Grand Concourse Children"
+        },
+        {
+          "code": "gkj",
+          "name": "Great Kills Children"
+        },
+        {
+          "code": "hbj",
+          "name": "High Bridge Children"
+        },
+        {
+          "code": "hfj",
+          "name": "Hamilton Fish Park Children"
+        },
+        {
+          "code": "hgj",
+          "name": "Hamilton Grange Children"
+        },
+        {
+          "code": "hkj",
+          "name": "Huguenot Park Children "
+        },
+        {
+          "code": "hlj",
+          "name": "Harlem Children"
+        },
+        {
+          "code": "hpj",
+          "name": "Hudson Park Children"
+        },
+        {
+          "code": "hsj",
+          "name": "Hunt's Point Children"
+        },
+        {
+          "code": "htj",
+          "name": "Countee Cullen Children"
+        },
+        {
+          "code": "inj",
+          "name": "Inwood Children"
+        },
+        {
+          "code": "jmj",
+          "name": "Jefferson Market Children"
+        },
+        {
+          "code": "jpj",
+          "name": "Jerome Park Children"
+        },
+        {
+          "code": "kbj",
+          "name": "Kingsbridge Children"
+        },
+        {
+          "code": "kpj",
+          "name": "Kips Bay Children"
+        },
+        {
+          "code": "lbj",
+          "name": "Andrew Heiskell Children"
+        },
+        {
+          "code": "lmj",
+          "name": "New Amsterdam Children"
+        },
+        {
+          "code": "mbj",
+          "name": "Macomb's Bridge Children"
+        },
+        {
+          "code": "mej",
+          "name": "Melrose Children"
+        },
+        {
+          "code": "mhj",
+          "name": "Mott Haven Children"
+        },
+        {
+          "code": "mlj",
+          "name": "Mulberry Street Children"
+        },
+        {
+          "code": "mnj",
+          "name": "Mariner's Harbor Children"
+        },
+        {
+          "code": "moj",
+          "name": "Mosholu Children"
+        },
+        {
+          "code": "mp",
+          "name": "Morris Park"
+        },
+        {
+          "code": "mpj",
+          "name": "Morris Park Children"
+        },
+        {
+          "code": "mrj",
+          "name": "Morrisania Children"
+        },
+        {
+          "code": "muj",
+          "name": "Muhlenberg Children"
+        },
+        {
+          "code": "nbj",
+          "name": "West New Brighton Children"
+        },
+        {
+          "code": "ndj",
+          "name": "New Dorp Children"
+        },
+        {
+          "code": "otj",
+          "name": "Ottendorfer Children"
+        },
+        {
+          "code": "pkj",
+          "name": "Parkchester Children"
+        },
+        {
+          "code": "pmj",
+          "name": "Pelham Bay Children"
+        },
+        {
+          "code": "prj",
+          "name": "Port Richmond Children"
+        },
+        {
+          "code": "rdj",
+          "name": "Riverdale Children"
+        },
+        {
+          "code": "rij",
+          "name": "Roosevelt Island Children"
+        },
+        {
+          "code": "rsj",
+          "name": "Riverside Children"
+        },
+        {
+          "code": "rtj",
+          "name": "Richmondtown Children"
+        },
+        {
+          "code": "saj",
+          "name": "St. Agnes Children"
+        },
+        {
+          "code": "sbj",
+          "name": "South Beach Children"
+        },
+        {
+          "code": "sdj",
+          "name": "Sedgwick Children"
+        },
+        {
+          "code": "sej",
+          "name": "Seward Park Children"
+        },
+        {
+          "code": "sgj",
+          "name": "St. George Children"
+        },
+        {
+          "code": "stj",
+          "name": "Stapleton Children"
+        },
+        {
+          "code": "svj",
+          "name": "Soundview Children"
+        },
+        {
+          "code": "tgj",
+          "name": "Throg's Neck Children"
+        },
+        {
+          "code": "thj",
+          "name": "Todt Hill-Westerleigh Children"
+        },
+        {
+          "code": "tmj",
+          "name": "Tremont Children"
+        },
+        {
+          "code": "tsj",
+          "name": "Tompkins Square Children"
+        },
+        {
+          "code": "tvj",
+          "name": "Tottenville Children"
+        },
+        {
+          "code": "vcj",
+          "name": "Van Cortlandt Children"
+        },
+        {
+          "code": "vnj",
+          "name": "Pelham Parkway-Van Nest Children"
+        },
+        {
+          "code": "wbj",
+          "name": "Webster Children"
+        },
+        {
+          "code": "wfj",
+          "name": "West Farms Children"
+        },
+        {
+          "code": "whj",
+          "name": "Washington Heights Children"
+        },
+        {
+          "code": "wkj",
+          "name": "Wakefield Children"
+        },
+        {
+          "code": "wlj",
+          "name": "Woodlawn Heights Children"
+        },
+        {
+          "code": "woj",
+          "name": "Woodstock Children"
+        },
+        {
+          "code": "wtj",
+          "name": "Westchester Square Children"
+        },
+        {
+          "code": "yvj",
+          "name": "Yorkville Children"
+        },
+        {
+          "code": "maj",
+          "name": "SASB - Children's Center Rm 84"
+        },
+        {
+          "code": "ccj",
+          "name": "SASB - Children's Center Rm 84"
+        }
+      ],
+      "suppressed": false,
+      "lang": {
+        "code": "eng",
+        "name": "English"
+      },
+      "title": "Anna carries water",
+      "author": "Senior, Olive, author.",
+      "materialType": {
+        "code": "a",
+        "value": "BOOK/TEXT"
+      },
+      "bibLevel": {
+        "code": "m",
+        "value": "MONOGRAPH"
+      },
+      "publishYear": 2013,
+      "catalogDate": "2014-02-25",
+      "country": {
+        "code": "bcc",
+        "name": "British Columbia"
+      },
+      "normTitle": "anna carries water",
+      "normAuthor": "senior olive author",
+      "standardNumbers": [
+        "9781896580609",
+        "1896580602"
+      ],
+      "controlNumber": "835973981",
+      "fixedFields": {
+        "24": {
+          "label": "Language",
+          "value": "eng",
+          "display": "English"
+        },
+        "25": {
+          "label": "Skip",
+          "value": "0",
+          "display": null
+        },
+        "26": {
+          "label": "Location",
+          "value": "multi",
+          "display": null
+        },
+        "27": {
+          "label": "COPIES",
+          "value": "425",
+          "display": null
+        },
+        "28": {
+          "label": "Cat. Date",
+          "value": "2014-02-25",
+          "display": null
+        },
+        "29": {
+          "label": "Bib Level",
+          "value": "m",
+          "display": "MONOGRAPH"
+        },
+        "30": {
+          "label": "Material Type",
+          "value": "a",
+          "display": "BOOK/TEXT"
+        },
+        "31": {
+          "label": "Bib Code 3",
+          "value": "-",
+          "display": null
+        },
+        "80": {
+          "label": "Record Type",
+          "value": "b",
+          "display": null
+        },
+        "81": {
+          "label": "Record Number",
+          "value": "20028046",
+          "display": null
+        },
+        "83": {
+          "label": "Created Date",
+          "value": "2014-02-03T15:44:00Z",
+          "display": null
+        },
+        "84": {
+          "label": "Updated Date",
+          "value": "2018-09-20T01:25:06Z",
+          "display": null
+        },
+        "85": {
+          "label": "No. of Revisions",
+          "value": "795",
+          "display": null
+        },
+        "86": {
+          "label": "Agency",
+          "value": "1",
+          "display": null
+        },
+        "89": {
+          "label": "Country",
+          "value": "bcc",
+          "display": "British Columbia"
+        },
+        "98": {
+          "label": "PDATE",
+          "value": "2018-07-02T18:00:19Z",
+          "display": null
+        },
+        "107": {
+          "label": "MARC Type",
+          "value": " ",
+          "display": null
+        }
+      },
+      "varFields": [
+        {
+          "fieldTag": "a",
+          "marcTag": "100",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Senior, Olive,"
+            },
+            {
+              "tag": "e",
+              "content": "author."
+            }
+          ]
+        },
+        {
+          "fieldTag": "b",
+          "marcTag": "700",
+          "ind1": "1",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "James, Laura,"
+            },
+            {
+              "tag": "e",
+              "content": "artist."
+            }
+          ]
+        },
+        {
+          "fieldTag": "c",
+          "marcTag": "091",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "p",
+              "content": "J"
+            },
+            {
+              "tag": "a",
+              "content": "PIC"
+            },
+            {
+              "tag": "c",
+              "content": "S"
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Water-supply, Rural"
+            },
+            {
+              "tag": "v",
+              "content": "Juvenile fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Chores"
+            },
+            {
+              "tag": "v",
+              "content": "Juvenile fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Child labor"
+            },
+            {
+              "tag": "v",
+              "content": "Juvenile fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "651",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Caribbean Area"
+            },
+            {
+              "tag": "v",
+              "content": "Juvenile fiction."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "655",
+          "ind1": " ",
+          "ind2": "7",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Children's stories"
+            },
+            {
+              "tag": "v",
+              "content": "Pictorial works."
+            },
+            {
+              "tag": "2",
+              "content": "gsafd"
+            }
+          ]
+        },
+        {
+          "fieldTag": "i",
+          "marcTag": "020",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "9781896580609 (hc.)"
+            }
+          ]
+        },
+        {
+          "fieldTag": "i",
+          "marcTag": "020",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "1896580602 (hc.)"
+            }
+          ]
+        },
+        {
+          "fieldTag": "l",
+          "marcTag": "035",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "(OCoLC)835973981"
+            }
+          ]
+        },
+        {
+          "fieldTag": "n",
+          "marcTag": "520",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "\"Anna fetches water from the spring every day, but she can't carry it on her head like her older brothers and sisters. In this charming and poetic family story set in Jamaica, Prize-winning author Olive Senior shows young readers the power of determination, as Anna achieves her goal and overcomes her fear.\" --publisher."
+            }
+          ]
+        },
+        {
+          "fieldTag": "o",
+          "marcTag": "001",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "835973981",
+          "subfields": null
+        },
+        {
+          "fieldTag": "p",
+          "marcTag": "264",
+          "ind1": " ",
+          "ind2": "1",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Vancouver, British Columbia :"
+            },
+            {
+              "tag": "b",
+              "content": "Tradewind Books,"
+            },
+            {
+              "tag": "c",
+              "content": "2013."
+            }
+          ]
+        },
+        {
+          "fieldTag": "r",
+          "marcTag": "300",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "38 un-numbered pages :"
+            },
+            {
+              "tag": "b",
+              "content": "color illustrations ;"
+            },
+            {
+              "tag": "c",
+              "content": "26 x 30 cm"
+            }
+          ]
+        },
+        {
+          "fieldTag": "r",
+          "marcTag": "336",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "text"
+            },
+            {
+              "tag": "2",
+              "content": "rdacontent"
+            }
+          ]
+        },
+        {
+          "fieldTag": "r",
+          "marcTag": "336",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "still image"
+            },
+            {
+              "tag": "b",
+              "content": "sti"
+            },
+            {
+              "tag": "2",
+              "content": "rdacontent"
+            }
+          ]
+        },
+        {
+          "fieldTag": "r",
+          "marcTag": "337",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "unmediated"
+            },
+            {
+              "tag": "2",
+              "content": "rdamedia"
+            }
+          ]
+        },
+        {
+          "fieldTag": "r",
+          "marcTag": "338",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "volume"
+            },
+            {
+              "tag": "2",
+              "content": "rdacarrier"
+            }
+          ]
+        },
+        {
+          "fieldTag": "t",
+          "marcTag": "245",
+          "ind1": "1",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Anna carries water /"
+            },
+            {
+              "tag": "c",
+              "content": "Olive Senior ; illustrated by Laura James."
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "003",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "OCoLC",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "005",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "20140224163007.0",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "008",
+          "ind1": " ",
+          "ind2": " ",
+          "content": "130307s2013    bcca   j      000 f eng dcamMi ",
+          "subfields": null
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "040",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "UKMGB"
+            },
+            {
+              "tag": "b",
+              "content": "eng"
+            },
+            {
+              "tag": "e",
+              "content": "rda"
+            },
+            {
+              "tag": "c",
+              "content": "UKMGB"
+            },
+            {
+              "tag": "d",
+              "content": "MLY"
+            },
+            {
+              "tag": "d",
+              "content": "JAI"
+            },
+            {
+              "tag": "d",
+              "content": "NYP"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "049",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "NYPP"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "082",
+          "ind1": "0",
+          "ind2": "4",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "823.92"
+            },
+            {
+              "tag": "2",
+              "content": "23"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "263",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "201307"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "901",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "abm"
+            },
+            {
+              "tag": "b",
+              "content": "CATBL"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "901",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "MARS"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "945",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": ".b200280466"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "946",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "m"
+            }
+          ]
+        },
+        {
+          "fieldTag": "_",
+          "marcTag": null,
+          "ind1": null,
+          "ind2": null,
+          "content": "00000cam  2200433Mi 4500",
+          "subfields": null
+        }
+      ]
+    },
+    {
+      "id": "21323534",
+      "nyplSource": "sierra-nypl",
+      "nyplType": "bib",
+      "updatedDate": "2017-08-23T20:22:13-04:00",
+      "createdDate": "2017-08-23T14:46:46-04:00",
+      "deletedDate": null,
+      "deleted": false,
+      "locations": [
+        {
+          "code": "ed",
+          "name": "LSC Educator Collection"
+        }
+      ],
+      "suppressed": false,
+      "lang": {
+        "code": "eng",
+        "name": "English"
+      },
+      "title": "Books for Reading and Sharing - Elementary School!",
+      "author": "",
+      "materialType": {
+        "code": "8",
+        "value": "TEACHER SET"
+      },
+      "bibLevel": {
+        "code": "m",
+        "value": "MONOGRAPH"
+      },
+      "publishYear": null,
+      "catalogDate": "2017-08-23",
+      "country": {
+        "code": "xx ",
+        "name": "Unknown or undetermined"
+      },
+      "normTitle": "books for reading and sharing elementary school",
+      "normAuthor": "",
+      "standardNumbers": [],
+      "controlNumber": "",
+      "fixedFields": {
+        "24": {
+          "label": "Language",
+          "value": "eng",
+          "display": "English"
+        },
+        "25": {
+          "label": "Skip",
+          "value": "0",
+          "display": null
+        },
+        "26": {
+          "label": "Location",
+          "value": "ed   ",
+          "display": "LSC Educator Collection"
+        },
+        "27": {
+          "label": "COPIES",
+          "value": "0",
+          "display": null
+        },
+        "28": {
+          "label": "Cat. Date",
+          "value": "2017-08-23",
+          "display": null
+        },
+        "29": {
+          "label": "Bib Level",
+          "value": "m",
+          "display": "MONOGRAPH"
+        },
+        "30": {
+          "label": "Material Type",
+          "value": "8",
+          "display": "TEACHER SET"
+        },
+        "31": {
+          "label": "Bib Code 3",
+          "value": "-",
+          "display": null
+        },
+        "80": {
+          "label": "Record Type",
+          "value": "b",
+          "display": null
+        },
+        "81": {
+          "label": "Record Number",
+          "value": "21323534",
+          "display": null
+        },
+        "83": {
+          "label": "Created Date",
+          "value": "2017-08-23T14:46:46Z",
+          "display": null
+        },
+        "84": {
+          "label": "Updated Date",
+          "value": "2017-08-23T20:22:13Z",
+          "display": null
+        },
+        "85": {
+          "label": "No. of Revisions",
+          "value": "2",
+          "display": null
+        },
+        "86": {
+          "label": "Agency",
+          "value": "1",
+          "display": null
+        },
+        "89": {
+          "label": "Country",
+          "value": "xx ",
+          "display": "Unknown or undetermined"
+        },
+        "98": {
+          "label": "PDATE",
+          "value": "2017-08-23T20:20:00Z",
+          "display": null
+        },
+        "107": {
+          "label": "MARC Type",
+          "value": " ",
+          "display": null
+        }
+      },
+      "varFields": [
+        {
+          "fieldTag": "c",
+          "marcTag": "091",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Teacher Set ELA A Books 4"
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "650",
+          "ind1": " ",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Picture books for children."
+            }
+          ]
+        },
+        {
+          "fieldTag": "d",
+          "marcTag": "690",
+          "ind1": "0",
+          "ind2": "7",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "English Language Arts."
+            },
+            {
+              "tag": "2",
+              "content": "local"
+            }
+          ]
+        },
+        {
+          "fieldTag": "n",
+          "marcTag": "500",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "2 copies of 10 titles."
+            }
+          ]
+        },
+        {
+          "fieldTag": "n",
+          "marcTag": "505",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Anna carries water -- Monkey & Robot -- Mother Bruce -- The book with no pictures -- The day the crayons quit -- The scraps book : notes from a colorful life -- Three bears in a boat -- Blizzard -- Bright Sky, Starry City -- Hula-Hoopin' Queen."
+            }
+          ]
+        },
+        {
+          "fieldTag": "n",
+          "marcTag": "520",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Topic Set (20 books) - This set of titles are great for reading aloud and sharing in the classroom - grades 1 and grades 2.  These titles were former selections from the NYC Department of Education's NYC Reads 365 list."
+            }
+          ]
+        },
+        {
+          "fieldTag": "n",
+          "marcTag": "521",
+          "ind1": "2",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "1-2."
+            }
+          ]
+        },
+        {
+          "fieldTag": "r",
+          "marcTag": "300",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "20 v."
+            }
+          ]
+        },
+        {
+          "fieldTag": "s",
+          "marcTag": "490",
+          "ind1": "0",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Teacher Sets: MyLibraryNYC Program"
+            }
+          ]
+        },
+        {
+          "fieldTag": "t",
+          "marcTag": "245",
+          "ind1": "0",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "Books for Reading and Sharing - Elementary School!"
+            }
+          ]
+        },
+        {
+          "fieldTag": "u",
+          "marcTag": "246",
+          "ind1": "3",
+          "ind2": "0",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "English Language Arts: Books for Reading and Sharing - Elementary School! Gr. 1-2 (Teacher Set)."
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "901",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "ed"
+            },
+            {
+              "tag": "b",
+              "content": "SEL"
+            }
+          ]
+        },
+        {
+          "fieldTag": "y",
+          "marcTag": "944",
+          "ind1": " ",
+          "ind2": " ",
+          "content": null,
+          "subfields": [
+            {
+              "tag": "a",
+              "content": "9781896580609  9781442429789  9781484730881  9780803741713  9780399255373  9781442435711 9780803739932  9781423178651  9781554984053  9781600608469"
+            }
+          ]
+        },
+        {
+          "fieldTag": "_",
+          "marcTag": null,
+          "ind1": null,
+          "ind2": null,
+          "content": "00000nam  2200000 a 4500",
+          "subfields": null
+        }
+      ]
+    }
+  ],
+  "count": 3,
+  "totalCount": 0,
+  "statusCode": 200,
+  "debugInfo": []
+}
