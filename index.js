@@ -92,8 +92,8 @@ exports.kinesisHandler = function (records, context, callback) {
     // POST request
     request(options, function (error, response, body) {
       logger.info({'message': 'Posting...'})
-      logger.info({'message': 'Response: ' + response.status})
-      if (response.status !== 200) {
+      logger.info({'message': 'Response: ' + response.statusCode})
+      if (response.statusCode !== 200) {
         callback(new Error())
         logger.error({'message': 'POST Error! ', 'response': response})
         return
@@ -115,8 +115,8 @@ exports.kinesisHandler = function (records, context, callback) {
     }
     request(options, function (error, response, body) {
       logger.info({'message': 'Deleting...'})
-      logger.info({'message': 'Response: ' + response.status})
-      if (response.status !== 200) {
+      logger.info({'message': 'Response: ' + response.statusCode})
+      if (response.statusCode !== 200) {
         callback(new Error())
         logger.error({'message': 'DELETE Error! ', 'response': response})
         return
