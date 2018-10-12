@@ -1,7 +1,5 @@
-const winston = require('winston');
-
-// Suppress error handling
-winston.emitErrs = true;
+const { createLogger, format, transports } = require('winston');
+const { combine, timestamp } = format;
 
 // Set default NYPL agreed upon log levels
 const nyplLogLevels = {
@@ -17,64 +15,21 @@ const nyplLogLevels = {
   },
 };
 
-const getLogLevelCode = (levelString) => {
-  switch (levelString) {
-    case 'emergency':
-      return 0;
-    case 'alert':
-      return 1;
-    case 'critical':
-      return 2;
-    case 'error':
-      return 3;
-    case 'warning':
-      return 4;
-    case 'notice':
-      return 5;
-    case 'info':
-      return 6;
-    case 'debug':
-      return 7;
-    default:
-      return 'n/a';
-  }
-};
-
-const loggerTransports = [];
-
-if (process.env.NODE_ENV !== 'test') {
-  loggerTransports.push(
-    new winston.transports.Console({
-      timestamp: () => new Date().toISOString(),
-      formatter: (options) => {
-        const result = {
-          timestamp: options.timestamp(),
-          levelCode: getLogLevelCode(options.level),
-          level: options.level.toUpperCase(),
-          message: options.message.toString(),
-        };
-
-        if (process.pid) {
-          result.pid = process.pid.toString();
-        }
-
-        if (options.meta) {
-          result.meta = JSON.stringify(options.meta);
-        }
-
-        return JSON.stringify(result);
-      },
-    }) // eslint-disable-line comma-dangle
-  );
-}
-
-const logger = new (winston.Logger)({
-  levels: nyplLogLevels.levels,
-  transports: loggerTransports,
-  exitOnError: false,
+//Capitlizes the log level key
+const upCaseLogLevels = format((info, opts) => {
+  info.level = info.level.toUpperCase()
+  return info
 });
 
-// set the logger output level to one specified in the environment config
-logger.level = process.env.LOG_LEVEL;
+const logger = createLogger({
+  levels: nyplLogLevels.levels, 
+  format: combine(
+    timestamp(),
+    upCaseLogLevels(),
+    format.json()
+  ),
+  exitOnError: false,
+  transports: [new transports.Console()]
+})
 
 module.exports = logger;
