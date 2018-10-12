@@ -1,4 +1,4 @@
-
+const logger = require('./logger.js')
 const aws = require('aws-sdk');
 
 const kms = new aws.KMS({
@@ -13,6 +13,7 @@ const decryptKMS = (key) => {
   return new Promise((resolve, reject) => {
     kms.decrypt(params, (err, data) => {
       if (err) {
+        logger.error({'message': err.message })
         reject(err);
       } else {
         resolve(data.Plaintext.toString());
