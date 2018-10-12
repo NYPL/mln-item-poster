@@ -42,6 +42,7 @@ exports.kinesisHandler = function (records, context, callback) {
       records.forEach(function(record){
         if(record.deleted){
           deletedRecordsArray.push(record)
+          return; 
         } 
         if(record.materialType.value == "TEACHER SET"){
           updateCreateRecordsArray.push(record)
@@ -103,7 +104,7 @@ exports.kinesisHandler = function (records, context, callback) {
   }
 
 
-  function deleteRecords(record){
+  function deleteRecords(records){
     logger.info({'message': 'Deleting records'})
     var options = {
       uri: process.env['MLN_API_URL'],
