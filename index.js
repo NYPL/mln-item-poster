@@ -182,8 +182,6 @@ exports.kinesisHandler = function (records, context, callback) {
           auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function (error, accessToken, refreshToken, results) {
             if (error) {
               reject(error)
-              console.log(error)
-              logger.error({'message': error.message})
               logger.error({'message': 'Not authenticated'})
             } else {
               logger.info({'message': 'Successfully authenticated'})
