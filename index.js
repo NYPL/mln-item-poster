@@ -49,8 +49,8 @@ exports.kinesisHandler = function (records, context, callback) {
         }
       })
 
-      if (updateCreateRecordsArray.length != 0) postRecords(records)
-      if (deletedRecordsArray.length != 0) deleteRecords(records)
+      if (updateCreateRecordsArray.length != 0) postRecords(records, accessToken)
+      if (deletedRecordsArray.length != 0) deleteRecords(records, accessToken)
 
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
@@ -79,18 +79,15 @@ exports.kinesisHandler = function (records, context, callback) {
 
   // bulk posts records
   //function postRecords (accessToken, records) {
-  function postRecords (records) {
+  function postRecords (records, accessToken) {
     logger.info({'message': 'Posting records'})
     var options = {
       uri: process.env['MLN_API_URL'],
       method: 'POST',
-      // MLN application currently does not require NYPL OAUTH Authentication 
-      //headers: { Authorization: `Bearer ${accessToken}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
       body: records,
       json: true
     }
-
-    // POST request
     request(options, function (error, response, body) {
       logger.info({'message': 'Posting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
@@ -104,13 +101,12 @@ exports.kinesisHandler = function (records, context, callback) {
   }
 
 
-  function deleteRecords(records){
+  function deleteRecords(records, accessToken){
     logger.info({'message': 'Deleting records'})
     var options = {
       uri: process.env['MLN_API_URL'],
       method: 'DELETE',
-      // MLN application currently does not require NYPL OAUTH Authentication 
-      //headers: { Authorization: `Bearer ${accessToken}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
       body: records,
       json: true
     }
