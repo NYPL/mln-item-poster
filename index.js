@@ -49,7 +49,6 @@ exports.kinesisHandler = function (records, context, callback) {
         } else {
           logger.info({'message': 'Record has a value type of: ' + record.materialType.value + '. Therefore, will not send request to Rails API.'})
         }
-
       })
 
       if (updateCreateRecordsArray.length != 0) postRecords(records, accessToken)
