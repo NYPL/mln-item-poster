@@ -46,6 +46,8 @@ exports.kinesisHandler = function (records, context, callback) {
         } 
         if(record.materialType.value == "TEACHER SET"){
           updateCreateRecordsArray.push(record)
+        } else {
+          logger.info({'message': 'Record has a value type of: ' + record.materialType.value + '. Therefore, will not send request to Rails API.'})
         }
       })
 
