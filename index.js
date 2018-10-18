@@ -3,22 +3,14 @@ const OAuth = require('oauth')
 const Promise = require('promise')
 const request = require('request')
 const winston = require('winston')
+const awsDecrypt = require('./helper/awsDecrypt.js')
+const logger = require('./helper/logger.js')
+
 
 // Initialize cache
 var CACHE = {}
 
-const logger = new winston.Logger({
-  transports: [
-    new winston.transports.Console({
-      handleExceptions: true,
-      json: true,
-      stringify: true
-    })
-  ],
-  exitOnError: false
-})
-
-logger.info({'message': 'Loading Discovery Poster'})
+logger.info({'message': 'Loading MLN Bib Poster'})
 
 // kinesis stream handler
 exports.kinesisHandler = function (records, context, callback) {
@@ -43,63 +35,93 @@ exports.kinesisHandler = function (records, context, callback) {
           return parseKinesis(record, avroType)
         })
       // post to API
-      logger.info({'message': 'Posting records'})
-      postRecords(accessToken, records)
+
+      updateCreateRecordsArray = []
+      deletedRecordsArray = []
+
+      records.forEach(function(record){
+        if(record.deleted){
+          deletedRecordsArray.push(record)
+          return; 
+        } 
+        if(record.materialType.value == "TEACHER SET"){
+          updateCreateRecordsArray.push(record)
+        } else {
+          logger.info({'message': 'Record has a value type of: ' + record.materialType.value + '. Therefore, will not send request to Rails API.'})
+        }
+      })
+
+      if (updateCreateRecordsArray.length != 0) postRecords(records, accessToken)
+      if (deletedRecordsArray.length != 0) deleteRecords(records, accessToken)
+
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
       callback(error)
     }
   }
-
+  
   // map to records objects as needed
   function parseKinesis (payload, avroType) {
     logger.info({'message': 'Parsing Kinesis'})
       // decode base64
-    var buf = new Buffer(payload.kinesis.data, 'base64')
+    try{
 
+    var buf = new Buffer(payload.kinesis.data, 'base64')
       // decode avro
     var record = avroType.fromBuffer(buf)
 
+    logger.info({'message':  'Parsed Data' , 'data': record })
     return record
+    }
+    catch (err) {
+    logger.error({'message': err.message, 'error': err})
+    callback(null)
+    }
   }
 
   // bulk posts records
-  function postRecords (accessToken, records) {
+  //function postRecords (accessToken, records) {
+  function postRecords (records, accessToken) {
+    logger.info({'message': 'Posting records'})
     var options = {
-      uri: process.env['NYPL_API_POST_URL'],
+      uri: process.env['MLN_API_URL'],
       method: 'POST',
       headers: { Authorization: `Bearer ${accessToken}` },
       body: records,
       json: true
     }
-
-    // POST request
     request(options, function (error, response, body) {
       logger.info({'message': 'Posting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
-
       if (response.statusCode !== 200) {
-        if (response.statusCode === 401) {
-          // Clear access token so new one will be requested on retried request
-          CACHE['accessToken'] = null
-        }
-
         callback(new Error())
         logger.error({'message': 'POST Error! ', 'response': response})
         return
       }
+      logger.info({'message': 'POST Success'})
+    })
+  }
 
-      if (error) {
+
+  function deleteRecords(records, accessToken){
+    logger.info({'message': 'Deleting records'})
+    var options = {
+      uri: process.env['MLN_API_URL'],
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${accessToken}` },
+      body: records,
+      json: true
+    }
+    request(options, function (error, response, body) {
+      logger.info({'message': 'Deleting...'})
+      logger.info({'message': 'Response: ' + response.statusCode})
+      if (response.statusCode !== 200) {
         callback(new Error())
-        logger.error({'message': 'POST Error! ', 'error': error})
+        logger.error({'message': 'DELETE Error! ', 'response': response})
         return
       }
 
-      if (body.errors && body.errors.length) {
-        logger.info({'message': 'Data error: ' + body.errors})
-      }
-
-      logger.info({'message': 'POST Success'})
+      logger.info({'message': 'DELETE Success'})
     })
   }
 
@@ -150,20 +172,26 @@ exports.kinesisHandler = function (records, context, callback) {
     logger.info({'message': 'Requesting new token...'})
     return new Promise(function (resolve, reject) {
       var OAuth2 = OAuth.OAuth2
-      var key = process.env['NYPL_OAUTH_KEY']
-      var secret = process.env['NYPL_OAUTH_SECRET']
-      var url = process.env['NYPL_OAUTH_URL']
-      var auth = new OAuth2(key, secret, url, null, 'oauth/token', null)
-      auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function (error, accessToken, refreshToken, results) {
-        if (error) {
-          reject(error)
-          logger.error({'message': 'Not authenticated'})
-        } else {
-          logger.info({'message': 'Successfully authenticated'})
-          CACHE['accessToken'] = accessToken
-          resolve(accessToken)
-        }
-      })
+
+      var nyplOauthKey = awsDecrypt.decryptKMS(process.env['NYPL_OAUTH_KEY'])
+      var nyplOauthSecret = awsDecrypt.decryptKMS(process.env['NYPL_OAUTH_SECRET'])
+
+      Promise.all([nyplOauthKey, nyplOauthSecret])
+      .then((decryptedValues) => {
+        [nyplOauthKey, nyplOauthSecret] = decryptedValues;
+          var url = process.env['NYPL_OAUTH_URL']
+          var auth = new OAuth2(nyplOauthKey, nyplOauthSecret, url, null, 'oauth/token', null)
+          auth.getOAuthAccessToken('', { grant_type: 'client_credentials' }, function (error, accessToken, refreshToken, results) {
+            if (error) {
+              reject(error)
+              logger.error({'message': 'Not authenticated'})
+            } else {
+              logger.info({'message': 'Successfully authenticated'})
+              CACHE['accessToken'] = accessToken
+              resolve(accessToken)
+            }
+          })
+        })
     })
   }
 }

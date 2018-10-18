@@ -1,7 +1,6 @@
-# Discovery Bib/Item Poster
+# MyLibraryNYC Bib Poster
 
-This lambda should be deployed to two different lambdas.
-One to handle bibs, another for items. It reads those bibs or items from stream, then posts them to the bib or item service.
+This lambda currently listens to the AWS Bib/Item Kinesis Stream and sends POST requests to the MyLibraryNYC Rails applcation. 
 
 ## Setup
 
@@ -32,7 +31,7 @@ cp deploy.example.env deploy-item.env
 Generate mock-data by running
 
 ```
-node kinesify-data.js event.unencoded.sierra_bib_post_request.json event.json https://platform.nypl.org/api/v0.1/current-schemas/BibPostRequest
+node kinesify-data.js event.unencoded.sierra_bib_post_request.json event.json https://platform.nypl.org/api/v0.1/current-schemas/Bib
 ```
 
 This will take the un-encoded data in `event.unencoded.bibs.json` and put it in a kinesis stream format using the avro schema. You can load items by replacing the input file with `event.unencoded.items.json`
