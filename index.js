@@ -56,6 +56,7 @@ exports.kinesisHandler = function (records, context, callback) {
 
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
+      CACHE['accessToken'] = null
       callback(error)
     }
   }
