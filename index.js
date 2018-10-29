@@ -56,6 +56,7 @@ exports.kinesisHandler = function (records, context, callback) {
 
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
+      CACHE['accessToken'] = null
       callback(error)
     }
   }
@@ -94,6 +95,10 @@ exports.kinesisHandler = function (records, context, callback) {
       logger.info({'message': 'Posting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
       if (response.statusCode !== 200) {
+        if (response.statusCode === 401) {
+          // Clear access token so new one will be requested on retried request
+          CACHE['accessToken'] = null
+        }
         callback(new Error())
         logger.error({'message': 'POST Error! ', 'response': response})
         return
@@ -116,6 +121,10 @@ exports.kinesisHandler = function (records, context, callback) {
       logger.info({'message': 'Deleting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
       if (response.statusCode !== 200) {
+        if (response.statusCode === 401) {
+          // Clear access token so new one will be requested on retried request
+          CACHE['accessToken'] = null
+        }
         callback(new Error())
         logger.error({'message': 'DELETE Error! ', 'response': response})
         return
