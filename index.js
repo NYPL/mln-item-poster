@@ -51,8 +51,8 @@ exports.kinesisHandler = function (records, context, callback) {
         }
       })
 
-      if (updateCreateRecordsArray.length != 0) postRecords(records, accessToken)
-      if (deletedRecordsArray.length != 0) deleteRecords(records, accessToken)
+      if (updateCreateRecordsArray.length != 0) postRecords(updateCreateRecordsArray, accessToken)
+      if (deletedRecordsArray.length != 0) deleteRecords(deletedRecordsArray, accessToken)
 
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
