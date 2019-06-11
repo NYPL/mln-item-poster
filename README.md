@@ -1,6 +1,6 @@
-# MyLibraryNYC Bib Poster
+# MyLibraryNYC Item Poster
 
-This lambda currently listens to the AWS Bib/Item Kinesis Stream and sends POST requests to the MyLibraryNYC Rails applcation. 
+This lambda currently listens to the AWS Bib/Item Kinesis Stream and sends POST requests to the MyLibraryNYC Rails application.
 
 ## Setup
 
@@ -31,10 +31,10 @@ cp deploy.example.env deploy-item.env
 Generate mock-data by running
 
 ```
-node kinesify-data.js event.unencoded.sierra_bib_post_request.json event.json https://platform.nypl.org/api/v0.1/current-schemas/Bib
+node kinesify-data.js event.unencoded.sierra_item_post_request.json event.json https://platform.nypl.org/api/v0.1/current-schemas/Item
 ```
 
-This will take the un-encoded data in `event.unencoded.bibs.json` and put it in a kinesis stream format using the avro schema. You can load items by replacing the input file with `event.unencoded.items.json`
+This will take the un-encoded data in `event.unencoded.sierra_item_post_request.json` and put it in a kinesis stream format using the avro schema. 
 
 Assuming you have the proper API and oauth credentials setup in your `.env`, you can run the lambda locally using the mock data in `event.json`
 
