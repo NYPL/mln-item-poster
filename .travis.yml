@@ -7,17 +7,17 @@ install:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: npm run deploy-bib-development
+  script: npm run deploy-item-development
   on:
     branch: development
 - provider: script
   skip_cleanup: true
-  script: npm run deploy-bib-qa
+  script: npm run deploy-item-qa
   on:
     branch: qa
 - provider: script
   skip_cleanup: true
-  script: npm run deploy-bib-production
+  script: npm run deploy-item-production
   on:
     branch: master
 env:
