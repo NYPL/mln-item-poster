@@ -26,6 +26,8 @@ exports.kinesisHandler = function (records, context, callback) {
 
   // run when access token and schema are loaded
   function onReady (payload, accessToken, schema) {
+    logger.info({'message': 'onReady.start'})
+
     try {
       // load avro schema
       var avroType = avro.Type.forSchema(schema)
@@ -38,12 +40,10 @@ exports.kinesisHandler = function (records, context, callback) {
 
       updateRecordsArray = []
 
-      records.forEach(function(record){
-        logger.debug({'message': 'record.fixedFields=' + record.fixedFields})
-        logger.debug({'message': 'record.fixedFields.itemsType=' + record.fixedFields.itemsType})
+      records.forEach(function(record) {
         // we know the item belongs to a MyLibraryNYC bib when it has
         // "61":{"label":"Item Type","value":"252","display":"Teacher Set (DOE EDUCATOR ONLY)"},
-        if (record.fixedFields[61].value == "252") {
+        if (record.fixedFields["61"].value == "252") {
           logger.debug({'message': 'record ' + record + ' is of MLN type'})
           updateRecordsArray.push(record)
         } else {
