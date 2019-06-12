@@ -41,7 +41,7 @@ exports.kinesisHandler = function (records, context, callback) {
       records.forEach(function(record){
         // we know the item belongs to a MyLibraryNYC bib when it has
         // "61":{"label":"Item Type","value":"252","display":"Teacher Set (DOE EDUCATOR ONLY)"},
-        if (record.itemType.value == "252") {
+        if (record.fixedFields.61.value == "252") {
           logger.debug({'message': 'record ' + record + ' is of MLN type'})
           updateRecordsArray.push(record)
         } else {
