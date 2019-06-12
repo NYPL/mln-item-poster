@@ -47,7 +47,7 @@ exports.kinesisHandler = function (records, context, callback) {
           logger.debug({'message': 'record ' + record + ' is of MLN type'})
           updateRecordsArray.push(record)
         } else {
-          logger.debug({'message': 'Record has a value type of: ' + record.materialType.value + '. Therefore, will not send request to Rails API.'})
+          logger.debug({'message': 'Record has a value type of: ' + record.fixedFields["61"].value + '. Therefore, will not send request to Rails API.'})
         }
       })
 
