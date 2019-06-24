@@ -11,6 +11,7 @@ const logger = require('./helper/logger.js')
 var CACHE = {}
 
 logger.info({'message': 'Loading MLN Item Poster'})
+logger.debug({'message': 'test writing debug log'})
 
 // kinesis stream handler
 exports.kinesisHandler = function (records, context, callback) {
@@ -65,18 +66,16 @@ exports.kinesisHandler = function (records, context, callback) {
   function parseKinesis (payload, avroType) {
     logger.info({'message': 'Parsing Kinesis'})
       // decode base64
-    try{
+    try {
+      var buf = new Buffer(payload.kinesis.data, 'base64')
+        // decode avro
+      var record = avroType.fromBuffer(buf)
 
-    var buf = new Buffer(payload.kinesis.data, 'base64')
-      // decode avro
-    var record = avroType.fromBuffer(buf)
-
-    logger.info({'message':  'Parsed Data' , 'data': record })
-    return record
-    }
-    catch (err) {
-    logger.error({'message': err.message, 'error': err})
-    callback(null)
+      logger.debug({'message':  'Parsed Data' , 'data': record })
+      return record
+    } catch (err) {
+      logger.error({'message': err.message, 'error': err})
+      callback(null)
     }
   }
 
