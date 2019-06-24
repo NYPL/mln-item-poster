@@ -21,15 +21,29 @@ const upCaseLogLevels = format((info, opts) => {
   return info
 });
 
+
+// Initiate the winston logger.
+// To debug the lambda locally, set the debug level with:
+// transports: [new transports.Console({level: 'error'})]
 const logger = createLogger({
-  levels: nyplLogLevels.levels, 
+  level: process.env['LOGGING'],
+  levels: nyplLogLevels.levels,
   format: combine(
     timestamp(),
-    upCaseLogLevels(),
+    label({ label: 'mln-item-poster-lambda: ' }),
     format.json()
   ),
+  defaultMeta: { service: 'mln-item-poster-lambda' },
   exitOnError: false,
-  transports: [new transports.Console()]
-})
+  transports: [new transports.Console({level: process.env['LOGGING']})]
+});
+
+// If we're in local then log to the `console` with the format:
+// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
+if (process.env.NODE_ENV == 'local') {
+  logger.add(new winston.transports.Console({
+    format: winston.format.simple()
+  }));
+}
 
 module.exports = logger;
