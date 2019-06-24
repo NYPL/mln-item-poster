@@ -1,9 +1,9 @@
 {
-  "name": "mln-bib-poster",
+  "name": "mln-item-poster",
   "version": "0.1.0",
   "engines": {
     "node": ">=10.0.0",
-    "npm": ">=6.0.0"
+    "npm": ">=8.0.0"
   },
   "description": "Reads bibs/items from stream, posts to MyLibraryNYC",
   "devDependencies": {},
@@ -12,12 +12,12 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NYPL/mln-bib-poster.git"
+    "url": "https://github.com/NYPL/mln-item-poster.git"
   },
   "scripts": {
-    "deploy-bib-development": "./node_modules/.bin/node-lambda deploy --functionName mln-bib-poster -e development -f ./config/deploy_development.env -o arn:aws:iam::224280085904:role/lambda_basic_execution -a $AWS_ACCESS_KEY_ID_DEVELOPMENT -s $AWS_SECRET_ACCESS_KEY_DEVELOPMENT -S config/event-source-bib-development.json",
-    "deploy-bib-qa": "./node_modules/.bin/node-lambda deploy --functionName mln-bib-poster -e qa -f ./config/deploy_qa.env -o arn:aws:iam::946183545209:role/lambda-full-access -a $AWS_ACCESS_KEY_ID_QA -s $AWS_SECRET_ACCESS_KEY_QA -S config/event-source-bib-qa.json",
-    "deploy-bib-production": "./node_modules/.bin/node-lambda deploy --functionName mln-bib-poster -e production -f ./config/deploy_production.env -o arn:aws:iam::946183545209:role/lambda-full-access -a $AWS_ACCESS_KEY_ID_QA -s $AWS_SECRET_ACCESS_KEY_QA -S config/event-source-bib-production.json"
+    "deploy-item-development": "./node_modules/.bin/node-lambda deploy --functionName mln-item-poster -e development -f ./config/deploy_development.env -o arn:aws:iam::224280085904:role/lambda_basic_execution -a $AWS_ACCESS_KEY_ID_DEVELOPMENT -s $AWS_SECRET_ACCESS_KEY_DEVELOPMENT -S config/event-source-item-development.json",
+    "deploy-item-qa": "./node_modules/.bin/node-lambda deploy --functionName mln-item-poster -e qa -f ./config/deploy_qa.env -o arn:aws:iam::946183545209:role/lambda-full-access -a $AWS_ACCESS_KEY_ID_QA -s $AWS_SECRET_ACCESS_KEY_QA -S config/event-source-item-qa.json",
+    "deploy-item-production": "./node_modules/.bin/node-lambda deploy --functionName mln-item-poster -e production -f ./config/deploy_production.env -o arn:aws:iam::946183545209:role/lambda-full-access -a $AWS_ACCESS_KEY_ID_QA -s $AWS_SECRET_ACCESS_KEY_QA -S config/event-source-item-production.json"
   },
   "dependencies": {
     "avsc": "^5.0.4",

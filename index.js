@@ -10,7 +10,7 @@ const logger = require('./helper/logger.js')
 // Initialize cache
 var CACHE = {}
 
-logger.info({'message': 'Loading MLN Bib Poster'})
+logger.info({'message': 'Loading MLN Item Poster'})
 
 // kinesis stream handler
 exports.kinesisHandler = function (records, context, callback) {
@@ -26,6 +26,8 @@ exports.kinesisHandler = function (records, context, callback) {
 
   // run when access token and schema are loaded
   function onReady (payload, accessToken, schema) {
+    logger.info({'message': 'onReady.start'})
+
     try {
       // load avro schema
       var avroType = avro.Type.forSchema(schema)
@@ -36,23 +38,20 @@ exports.kinesisHandler = function (records, context, callback) {
         })
       // post to API
 
-      updateCreateRecordsArray = []
-      deletedRecordsArray = []
+      updateRecordsArray = []
 
-      records.forEach(function(record){
-        if(record.deleted){
-          deletedRecordsArray.push(record)
-          return; 
-        } 
-        if(record.materialType.value == "TEACHER SET"){
-          updateCreateRecordsArray.push(record)
+      records.forEach(function(record) {
+        // we know the item belongs to a MyLibraryNYC bib when it has
+        // "61":{"label":"Item Type","value":"252","display":"Teacher Set (DOE EDUCATOR ONLY)"},
+        if (record.fixedFields["61"].value == "252") {
+          logger.debug({'message': 'record ' + record + ' is of MLN type'})
+          updateRecordsArray.push(record)
         } else {
-          logger.info({'message': 'Record has a value type of: ' + record.materialType.value + '. Therefore, will not send request to Rails API.'})
+          logger.debug({'message': 'Record has a value type of: ' + record.fixedFields["61"].value + '. Therefore, will not send request to Rails API.'})
         }
       })
 
-      if (updateCreateRecordsArray.length != 0) postRecords(updateCreateRecordsArray, accessToken)
-      if (deletedRecordsArray.length != 0) deleteRecords(deletedRecordsArray, accessToken)
+      if (updateRecordsArray.length != 0) postRecords(updateRecordsArray, accessToken)
 
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
@@ -60,7 +59,8 @@ exports.kinesisHandler = function (records, context, callback) {
       callback(error)
     }
   }
-  
+
+
   // map to records objects as needed
   function parseKinesis (payload, avroType) {
     logger.info({'message': 'Parsing Kinesis'})
@@ -80,8 +80,8 @@ exports.kinesisHandler = function (records, context, callback) {
     }
   }
 
-  // bulk posts records
-  //function postRecords (accessToken, records) {
+
+  // bulk posts item records to the MLN API
   function postRecords (records, accessToken) {
     logger.info({'message': 'Posting records'})
     var options = {
@@ -91,6 +91,7 @@ exports.kinesisHandler = function (records, context, callback) {
       body: records,
       json: true
     }
+
     request(options, function (error, response, body) {
       logger.info({'message': 'Posting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
@@ -107,32 +108,6 @@ exports.kinesisHandler = function (records, context, callback) {
     })
   }
 
-
-  function deleteRecords(records, accessToken){
-    logger.info({'message': 'Deleting records'})
-    var options = {
-      uri: process.env['MLN_API_URL'],
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${accessToken}` },
-      body: records,
-      json: true
-    }
-    request(options, function (error, response, body) {
-      logger.info({'message': 'Deleting...'})
-      logger.info({'message': 'Response: ' + response.statusCode})
-      if (response.statusCode !== 200) {
-        if (response.statusCode === 401) {
-          // Clear access token so new one will be requested on retried request
-          CACHE['accessToken'] = null
-        }
-        callback(new Error())
-        logger.error({'message': 'DELETE Error! ', 'response': response})
-        return
-      }
-
-      logger.info({'message': 'DELETE Success'})
-    })
-  }
 
   function schema () {
     // schema in cache; just return it as a instant promise
@@ -166,6 +141,7 @@ exports.kinesisHandler = function (records, context, callback) {
       })
     })
   }
+
 
   // oauth token retriever
   function token () {
@@ -204,6 +180,7 @@ exports.kinesisHandler = function (records, context, callback) {
     })
   }
 }
+
 
 // main function
 exports.handler = function (event, context, callback) {
