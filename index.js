@@ -11,23 +11,11 @@ const logger = require('./helper/logger.js')
 var CACHE = {}
 
 logger.info({'message': 'Loading MLN Item Poster'})
-logger.debug({'message': 'test writing debug log'})
-logger.warning({'message': 'test writing warning log'})
-console.log('console.log');
-//console.debug('console.debug');
-console.info('console.info');
-console.error('console.error');
 
 // kinesis stream handler
 exports.kinesisHandler = function (records, context, callback) {
   logger.info({'message': 'Processing ' + records.length + ' records'})
-  logger.info({'message': 'Loading MLN Item Poster'})
-  logger.debug({'message': 'test writing debug log'})
-  logger.warning({'message': 'test writing warning log'})
-  console.log('console.log');
-  //console.debug('console.debug');
-  console.info('console.info');
-  console.error('console.error');
+  logger.debug({'message': 'Records=' + records})
 
   // retrieve token and schema
   Promise.all([token(), schema()])
@@ -49,22 +37,24 @@ exports.kinesisHandler = function (records, context, callback) {
         .map(function (record) {
           return parseKinesis(record, avroType)
         })
-      // post to API
 
+      // see if the item(s) belong to MyLibraryNYC
       updateRecordsArray = []
-
       records.forEach(function(record) {
+        logger.debug({'message': 'record.id=' + record.id})
         // we know the item belongs to a MyLibraryNYC bib when it has
         // "61":{"label":"Item Type","value":"252","display":"Teacher Set (DOE EDUCATOR ONLY)"},
         if (record.fixedFields["61"].value == "252") {
           logger.debug({'message': 'record ' + record + ' is of MLN type'})
           updateRecordsArray.push(record)
         } else {
-          logger.debug({'message': 'Record has a value type of: ' + record.fixedFields["61"].value + '. Therefore, will not send request to Rails API.'})
+          logger.debug({'message': 'Record type=' + record.fixedFields["61"].value + '. Will not send request to Rails API.'})
         }
       })
 
+      // if any MLN items, send them on to the MLN API
       if (updateRecordsArray.length != 0) postRecords(updateRecordsArray, accessToken)
+      logger.debug({'message': 'Finished sending MyLibraryNYC records to the MLN API.'})
 
     } catch (error) {
       logger.error({'message': error.message, 'error': error})
