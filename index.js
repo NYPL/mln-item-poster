@@ -21,6 +21,13 @@ console.error('console.error');
 // kinesis stream handler
 exports.kinesisHandler = function (records, context, callback) {
   logger.info({'message': 'Processing ' + records.length + ' records'})
+  logger.info({'message': 'Loading MLN Item Poster'})
+  logger.debug({'message': 'test writing debug log'})
+  logger.warning({'message': 'test writing warning log'})
+  console.log('console.log');
+  //console.debug('console.debug');
+  console.info('console.info');
+  console.error('console.error');
 
   // retrieve token and schema
   Promise.all([token(), schema()])
