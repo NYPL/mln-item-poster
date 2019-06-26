@@ -12,6 +12,11 @@ var CACHE = {}
 
 logger.info({'message': 'Loading MLN Item Poster'})
 logger.debug({'message': 'test writing debug log'})
+logger.warning({'message': 'test writing warning log'})
+console.log('console.log');
+//console.debug('console.debug');
+console.info('console.info');
+console.error('console.error');
 
 // kinesis stream handler
 exports.kinesisHandler = function (records, context, callback) {
