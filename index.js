@@ -52,7 +52,7 @@ exports.kinesisHandler = function (records, context, callback) {
         }
       })
 
-      logger.debug({'message': 'Updated records array length' + updateRecordsArray.length })
+      logger.debug({'message': 'Update records array length' + updateRecordsArray.length })
       // if any MLN items, send them on to the MLN API
       if (updateRecordsArray.length != 0) postRecords(updateRecordsArray, accessToken)
       logger.debug({'message': 'Finished sending MyLibraryNYC records to the MLN API.'})
