@@ -44,7 +44,7 @@ exports.kinesisHandler = function (records, context, callback) {
         logger.debug({'message': 'record.id=' + record.id})
         // we know the item belongs to a MyLibraryNYC bib when it has
         // "61":{"label":"Item Type","value":"252","display":"Teacher Set (DOE EDUCATOR ONLY)"},
-        if (record.fixedFields["61"].value == "252") {
+        if (record.fixedFields["61"] && record.fixedFields["61"].value == "252") {
           logger.debug({'message': 'record ' + record + ' is of MLN type'})
           updateRecordsArray.push(record)
         } else {
@@ -53,7 +53,10 @@ exports.kinesisHandler = function (records, context, callback) {
       })
 
       // if any MLN items, send them on to the MLN API
-      if (updateRecordsArray.length != 0) postRecords(updateRecordsArray, accessToken)
+      if (updateRecordsArray.length != 0) {
+        postRecords(updateRecordsArray, accessToken)
+      }
+
       logger.debug({'message': 'Finished sending MyLibraryNYC records to the MLN API.'})
 
     } catch (error) {
