@@ -42,13 +42,16 @@ exports.kinesisHandler = function (records, context, callback) {
       updateRecordsArray = []
       records.forEach(function(record) {
         logger.debug({'message': 'record.id=' + record.id})
+        var record_type = 'unknown';
+        if (record.fixedFields["61"]) {  record_type = record.fixedFields["61"].value;  }
+
         // we know the item belongs to a MyLibraryNYC bib when it has
         // "61":{"label":"Item Type","value":"252","display":"Teacher Set (DOE EDUCATOR ONLY)"},
-        if (record.fixedFields["61"] && record.fixedFields["61"].value == "252") {
+        if (record_type == "252") {
           logger.debug({'message': 'record ' + record + ' is of MLN type'})
           updateRecordsArray.push(record)
         } else {
-          logger.debug({'message': 'Record type=' + record.fixedFields["61"].value + '. Will not send request to Rails API.'})
+          logger.debug({'message': 'Record type=' + record_type + '. Will not send request to Rails API.'})
         }
       })
 
