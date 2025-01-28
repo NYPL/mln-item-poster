@@ -6,7 +6,6 @@ const winston = require('winston')
 const awsDecrypt = require('./helper/awsDecrypt.js')
 const logger = require('./helper/logger.js')
 
-
 // Initialize cache
 var CACHE = {}
 
@@ -76,7 +75,6 @@ exports.kinesisHandler = function (records, context, callback) {
     }
   }
 
-
   // map to records objects as needed
   function parseKinesis (payload, avroType) {
     logger.info({'message': 'Parsing Kinesis'})
@@ -93,7 +91,6 @@ exports.kinesisHandler = function (records, context, callback) {
       callback(null)
     }
   }
-
 
   // bulk posts item records to the MLN API
   function postRecords (records, accessToken, retries = 5, delay = 2000) {
@@ -186,7 +183,6 @@ exports.kinesisHandler = function (records, context, callback) {
     })
   }
 
-
   // oauth token retriever
   function token () {
     // access token in cache; just return it as a instant promise
@@ -224,7 +220,6 @@ exports.kinesisHandler = function (records, context, callback) {
     })
   }
 }
-
 
 // main function
 exports.handler = function (event, context, callback) {
