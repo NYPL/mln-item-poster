@@ -1,20 +1,20 @@
 language: node_js
 node_js:
 - '16'
-# script: npm test
+script: npm test
 install:
 - npm install
 deploy:
 - provider: script
   skip_cleanup: true
-  script: npm run deploy-item-development
+  script: npm run qa
   on:
     branch: development
 - provider: script
   skip_cleanup: true
   script: npm run deploy-item-qa
   on:
-    branch: MLN-item-status-codes #needs to remove before erging into qa
+    branch: qa
 - provider: script
   skip_cleanup: true
   script: npm run deploy-item-production
