@@ -14,7 +14,7 @@ deploy:
   skip_cleanup: true
   script: npm run deploy-item-qa
   on:
-    branch: qa
+    branch: MLN-item-status-codes #needs to remove before erging into qa
 - provider: script
   skip_cleanup: true
   script: npm run deploy-item-production
