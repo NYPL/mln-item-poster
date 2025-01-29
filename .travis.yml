@@ -1,13 +1,13 @@
 language: node_js
 node_js:
-- '12'
+- '16'
 script: npm test
 install:
 - npm install
 deploy:
 - provider: script
   skip_cleanup: true
-  script: npm run deploy-item-development
+  script: npm run qa
   on:
     branch: development
 - provider: script
@@ -22,5 +22,4 @@ deploy:
     branch: master
 env:
   global:
-    secure: nD4ncz+nWo0ZUzJqKheVrqINOqiZvpO4lFiPwvLjUUVYtTQC7CBESbJDQxQz62MntLZmU+mbwIeKVAav+bjMiGF+2fMCwFRrNS9lDZPghCh6M0rutRnBlDnlNKimWhZdCAx9IHrWGilJK47DmueLUN/thLoN9zI5aaAPAKD3sbFNk/0zzctSdh5WSilm/2T7mfsYEw+NRITdsf/UCw9Tfr0YJAUo0O3Vz0WDDqWMZGXvrEIK0N/8jh/UYYEbQ4+4ZoXvy2vO0JkG7pks4GyLmYEPo7A+0BBlBxMBJau2RgIVddI10kIRFIRd7WSm30OgBFINg7rWAhYL1Fw37y5NHKXYF5xyJDqeQw0r/52DCTfKRBxpYIl6lVhtBpfGnuPuylIcuyZ1HGq2IhlMrpcOGBgHxkOe6zOOoZ4kwZ3HRCiGSj7AH3L6hbGdUMFmzsc/tjRW2WBhC2YDs6yTr9hHLBsL0Vpba9cPVgaXVZ+j1E1ZcQZwe/KC5OYqVdcLRlu5CjBogCy+KRN13n3XNPnK0dyA8Ei0aDXRxAw7bfaM5lQpmZYxramt/wgknr0LiuBgYDZt8I2pMJ71MGbLsOt8hZYXjYxcQ5Ysa+T3xiXqgm8HIpZFMpx7xB6nFNdtSSA0gUAICz5P8hCGdM2JdZ+6WmhV2u0gljOXtAcoLt08+0g=
-
+    secure: hHmcSHtG2H3oCg0F1KikVWQWliytli1AYThKv50f1oIqUuidrM9XOu6ySNcgvWfrqZZETKJMh6cJ0hmtBEtDPL/nyQfm/lp+fy5NDW7MhcQLNV84GMe/EU5aOi6ksAjkMNXKmQNvIqQId8jfG7CMp2JLEjwNKUbJ/SJcIoyO93ghTaVMg8VNqOo8djIfKcTErESDtDyqWczyTWPXtHfchKBzQGX5EMmlq/9ea1dO7fhp5A+E5WzvKs+xDzm5cz1QjWwDeXAQi9st7dWyqvjJbU1rwyfpxpc/6jUYDlP2FYYNbrpLogMa6tiGzkXrA8txGF9bmuq+tj9a3Gchj9rnacpyViCvH5lqFn7Bdv4fvEZJQbm1XY8wFkc3m/htxqLNWRjiwaFBzrNeGEzMZ3L6nrfCQCk/P+Pntph9uK+MtVhyEqwEvE3B57wjMaK/HX/C9/j/eAtnVroqmLgQeb2GKyqlfkxHKZdIV2GGobd6WWTfyaxsST0tfOYNh0kZoQ2HI5YlAiUHkiwkoF7iI4dM2Rz37ONpKvEfU2wxHflBKfIDSkNUA82vCHX9dJsCv9RgORsLSyh/xJRVFpsEe0dHgQiUTlDSOLT2PRD731R2/mixFZxTzs9NKUhXfavR42Qw9LXjpT6CQ5cEZRr8FGDdnwd3Ck2y3FmrtMHX2seytc8=
