@@ -7,7 +7,7 @@ install:
 deploy:
 - provider: script
   skip_cleanup: true
-  script: npm run qa
+  script: npm run deploy-item-development
   on:
     branch: development
 - provider: script
