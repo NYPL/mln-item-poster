@@ -50,30 +50,25 @@ exports.kinesisHandler = function (records, context, callback) {
           logger.debug({'message': 'record ' + record + ' is of MLN type'})
           updateRecordsArray.push(record)
         } else {
-          logger.info({'message': 'Record type=' + record_type + '. Will not send request to Rails API.'})
+          logger.debug({'message': 'Record type=' + record_type + '. Will not send request to Rails API.'})
         }
       })
 
       logger.debug({'message': 'Update records array length' + updateRecordsArray.length })
-      var maxRetries = 5
-      if (updateRecordsArray.length !== 0) {
-        postRecords(updateRecordsArray, accessToken, maxRetries, 2000, function (err, result) {
-          if (err) {
-            logger.error({ 'message': 'Error in posting records', 'error': err });
-            return callback(err);
-          }
-          logger.info({ 'message': 'All records posted successfully' });
-        });
+      // if any MLN items, send them on to the MLN API
+      if (updateRecordsArray.length != 0) {
+        postRecords(updateRecordsArray, accessToken)
       }
 
       logger.debug({'message': 'Finished sending MyLibraryNYC records to the MLN API.'})
 
     } catch (error) {
-      logger.error({'message': error.message, 'Error test occcured': error})
+      logger.error({'message': error.message, 'Error occcured': error})
       CACHE['accessToken'] = null
       callback(error)
     }
   }
+
 
   // map to records objects as needed
   function parseKinesis (payload, avroType) {
@@ -92,8 +87,9 @@ exports.kinesisHandler = function (records, context, callback) {
     }
   }
 
+
   // bulk posts item records to the MLN API
-  function postRecords (records, accessToken, retries = 5, delay = 2000) {
+  function postRecords (records, accessToken) {
     logger.info({'message': 'Posting records'})
     var options = {
       uri: process.env['MLN_API_URL'],
@@ -106,49 +102,19 @@ exports.kinesisHandler = function (records, context, callback) {
     request(options, function (error, response, body) {
       logger.info({'message': 'Posting...'})
       logger.info({'message': 'Response: ' + response.statusCode})
-      
-      if (error) {
-        logger.error({ 'message': 'Request error', 'error': error });
-        return callback(error);
-      }
-  
-      logger.info({ 'message': `Response status: ${response.statusCode}` });
-  
-      // Retry logic for 500 and 401 status codes
+
       if ([500, 401].includes(response.statusCode)) {
         if (response.statusCode === 401) {
-          // Clear access token so a new one will be requested on retry
-          CACHE['accessToken'] = null;
+          // Clear access token so new one will be requested on retried request
+          CACHE['accessToken'] = null
         }
-  
-        if (retries > 0) {
-          logger.warn({
-            'message': `Retrying request. Attempts left: ${retries - 1}`,
-          });
-  
-          // Wait before retrying
-          return setTimeout(() => {
-            postRecords(records, accessToken, retries - 1, delay);
-          }, delay);
-        }
-  
-        logger.error({
-          'message': 'POST failed after retries',
-          'response': response,
-        });
         callback(new Error())
         logger.error({'message': 'POST Error! ', 'response': response})
         return
       } else if ([400, 404].includes(response.statusCode)) {
-        logger.error({
-          'message': 'POST API input validation failed for testing',
-          'response': response,
-        });
-        return
+        logger.error({'message': 'Post api input validations failed!', 'response': response})
       }
-      logger.info({ 'message': 'POST Success' });
-      callback(null, body);
-    });
+    })
   }
 
   function schema () {
