@@ -145,6 +145,7 @@ exports.kinesisHandler = function (records, context, callback) {
         return
       }
       logger.info({ 'message': 'POST Success' });
+      callback(null, body);
     });
   }
 
