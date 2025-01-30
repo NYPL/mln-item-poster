@@ -139,14 +139,12 @@ exports.kinesisHandler = function (records, context, callback) {
         return callback(new Error('POST request failed after retries'));
       } else if ([400, 404].includes(response.statusCode)) {
         logger.error({
-          'message': 'POST API input validation failed',
+          'message': 'POST API input validation failed for testing',
           'response': response,
         });
-        return callback(new Error('Input validation failed'));
+        return
       }
-  
       logger.info({ 'message': 'POST Success' });
-      callback(null, body);
     });
   }
 
