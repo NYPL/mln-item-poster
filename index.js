@@ -136,7 +136,9 @@ exports.kinesisHandler = function (records, context, callback) {
           'message': 'POST failed after retries',
           'response': response,
         });
-        return callback(new Error('POST request failed after retries'));
+        callback(new Error())
+        logger.error({'message': 'POST Error! ', 'response': response})
+        return
       } else if ([400, 404].includes(response.statusCode)) {
         logger.error({
           'message': 'POST API input validation failed for testing',
