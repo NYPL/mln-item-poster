@@ -50,7 +50,7 @@ exports.kinesisHandler = function (records, context, callback) {
           logger.debug({'message': 'record ' + record + ' is of MLN type'})
           updateRecordsArray.push(record)
         } else {
-          logger.debug({'message': 'Record type=' + record_type + '. Will not send request to Rails API.'})
+          logger.info({'message': 'Record type=' + record_type + '. Will not send request to Rails API.'})
         }
       })
 
@@ -69,7 +69,7 @@ exports.kinesisHandler = function (records, context, callback) {
       logger.debug({'message': 'Finished sending MyLibraryNYC records to the MLN API.'})
 
     } catch (error) {
-      logger.error({'message': error.message, 'Error occcured': error})
+      logger.error({'message': error.message, 'Error test occcured': error})
       CACHE['accessToken'] = null
       callback(error)
     }
@@ -136,7 +136,9 @@ exports.kinesisHandler = function (records, context, callback) {
           'message': 'POST failed after retries',
           'response': response,
         });
-        return callback(new Error('POST request failed after retries'));
+        callback(new Error())
+        logger.error({'message': 'POST Error! ', 'response': response})
+        return
       } else if ([400, 404].includes(response.statusCode)) {
         logger.error({
           'message': 'POST API input validation failed for testing',
