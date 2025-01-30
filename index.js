@@ -50,7 +50,7 @@ exports.kinesisHandler = function (records, context, callback) {
           logger.debug({'message': 'record ' + record + ' is of MLN type'})
           updateRecordsArray.push(record)
         } else {
-          logger.debug({'message': 'Record type=' + record_type + '. Will not send request to Rails API.'})
+          logger.info({'message': 'Record type=' + record_type + '. Will not send request to Rails API.'})
         }
       })
 
@@ -69,7 +69,7 @@ exports.kinesisHandler = function (records, context, callback) {
       logger.debug({'message': 'Finished sending MyLibraryNYC records to the MLN API.'})
 
     } catch (error) {
-      logger.error({'message': error.message, 'Error occcured': error})
+      logger.error({'message': error.message, 'Error test occcured': error})
       CACHE['accessToken'] = null
       callback(error)
     }
