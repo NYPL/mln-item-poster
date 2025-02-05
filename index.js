@@ -87,34 +87,50 @@ exports.kinesisHandler = function (records, context, callback) {
     }
   }
 
+  const MAX_RETRIES = 5;
+  const RETRY_DELAY = 1000; // Initial delay of 1 second
 
-  // bulk posts item records to the MLN API
-  function postRecords (records, accessToken) {
-    logger.info({'message': 'Posting records'})
-    var options = {
+  function postRecords(records, accessToken, retries = 0) {
+    logger.info({ message: `Posting records, attempt ${retries + 1}` });
+
+    const options = {
       uri: process.env['MLN_API_URL'],
       method: 'POST',
       headers: { Authorization: `Bearer ${accessToken}` },
       body: records,
       json: true
-    }
+    };
 
-    request(options, function (error, response, body) {
-      logger.info({'message': 'Posting...'})
-      logger.info({'message': 'Response: ' + response.statusCode})
+    request(options, (error, response, body) => {
+      if (error) {
+        logger.error({ message: 'Request failed', error });
+        return;
+      }
+
+      logger.info({ message: 'Response status: ' + response.statusCode + ' Response Body: ' + response });
 
       if ([500, 401].includes(response.statusCode)) {
-        if (response.statusCode === 401) {
-          // Clear access token so new one will be requested on retried request
-          CACHE['accessToken'] = null
+        if (retries < MAX_RETRIES) {
+          const delay = Math.pow(2, retries) * RETRY_DELAY; // Exponential backoff
+          logger.info({ message: `Retrying in ${delay / 1000} seconds...` });
+
+          if (response.statusCode === 401) {
+            CACHE['accessToken'] = null; // Clear access token for re-authentication
+          }
+
+          setTimeout(() => {
+            postRecords(records, accessToken, retries + 1);
+          }, delay);
+        } else {
+          logger.error({ message: 'Max retries reached. Request failed.', response });
+          return
         }
-        callback(new Error())
-        logger.error({'message': 'POST Error! ', 'response': response})
-        return
       } else if ([400, 404].includes(response.statusCode)) {
-        logger.error({'message': 'Post api input validations failed!', 'response': response})
+        logger.error({ message: 'Post API input validation failed!', response });
+      } else {
+        logger.info({ message: 'Request successful', response });
       }
-    })
+    });
   }
 
   function schema () {
