@@ -107,7 +107,7 @@ exports.kinesisHandler = function (records, context, callback) {
         return;
       }
 
-      logger.info({ message: 'Response status: ' + response.statusCode + ' Response Body: ' + response });
+      logger.info({ message: 'Response status: ' + response.statusCode + ' Response Body: ' + response.body });
 
       if ([500, 401].includes(response.statusCode)) {
         if (retries < MAX_RETRIES) {
@@ -122,11 +122,11 @@ exports.kinesisHandler = function (records, context, callback) {
             postRecords(records, accessToken, retries + 1);
           }, delay);
         } else {
-          logger.error({ message: 'Max retries reached. Request failed.', response });
+          logger.error({ message: 'Max retries reached. Request failed.', 'Response Body': + response.body });
           return
         }
       } else if ([400, 404].includes(response.statusCode)) {
-        logger.error({ message: 'Post API input validation failed!', response });
+        logger.error({ message: 'Post API input validation failed!', 'Response Body': + response.body });
       } else {
         logger.info({ message: 'Request successful', response });
       }
