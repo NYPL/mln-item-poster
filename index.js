@@ -6,7 +6,6 @@ const winston = require('winston')
 const awsDecrypt = require('./helper/awsDecrypt.js')
 const logger = require('./helper/logger.js')
 
-
 // Initialize cache
 var CACHE = {}
 
@@ -58,6 +57,8 @@ exports.kinesisHandler = function (records, context, callback) {
       logger.debug({'message': 'Update records array length' + updateRecordsArray.length })
       // if any MLN items, send them on to the MLN API
       if (updateRecordsArray.length != 0) {
+        
+        logger.info({ message: 'Request successful', updateRecordsArray });
         postRecords(updateRecordsArray, accessToken)
       }
 
@@ -76,7 +77,7 @@ exports.kinesisHandler = function (records, context, callback) {
     logger.info({'message': 'Parsing Kinesis'})
       // decode base64
     try {
-      var buf = new Buffer(payload.kinesis.data, 'base64')
+      var buf = new Buffer.from(payload.kinesis.data, 'base64')
         // decode avro
       var record = avroType.fromBuffer(buf)
 
@@ -88,34 +89,51 @@ exports.kinesisHandler = function (records, context, callback) {
     }
   }
 
+  const MAX_RETRIES = 5;
+  const RETRY_DELAY = 1000; // Initial delay of 1 second
 
-  // bulk posts item records to the MLN API
-  function postRecords (records, accessToken) {
-    logger.info({'message': 'Posting records'})
-    var options = {
+  function postRecords(records, accessToken, retries = 0) {
+    logger.info({ message: `Posting records, attempt ${retries + 1}` });
+
+    const options = {
       uri: process.env['MLN_API_URL'],
       method: 'POST',
       headers: { Authorization: `Bearer ${accessToken}` },
       body: records,
       json: true
-    }
+    };
 
-    request(options, function (error, response, body) {
-      logger.info({'message': 'Posting...'})
-      logger.info({'message': 'Response: ' + response.statusCode})
-      if (response.statusCode !== 200) {
-        if (response.statusCode === 401) {
-          // Clear access token so new one will be requested on retried request
-          CACHE['accessToken'] = null
-        }
-        callback(new Error())
-        logger.error({'message': 'POST Error! ', 'response': response})
-        return
+    request(options, (error, response, body) => {
+      if (error) {
+        logger.error({ message: 'Request failed', error });
+        return;
       }
-      logger.info({'message': 'POST Success'})
-    })
-  }
 
+      logger.info({ message: 'Response status: ' + response.statusCode, 'Response Body': + response.body });
+
+      if ([500, 401].includes(response.statusCode)) {
+        if (retries < MAX_RETRIES) {
+          const delay = Math.pow(2, retries) * RETRY_DELAY; // Exponential backoff
+          logger.info({ message: `Retrying in ${delay / 1000} seconds...` });
+
+          if (response.statusCode === 401) {
+            CACHE['accessToken'] = null; // Clear access token for re-authentication
+          }
+
+          setTimeout(() => {
+            postRecords(records, accessToken, retries + 1);
+          }, delay);
+        } else {
+          logger.error({ message: 'Max retries reached. Request failed.', 'Response Body': + response.body });
+          return
+        }
+      } else if ([400, 404].includes(response.statusCode)) {
+        logger.error({ message: 'Post API input validation failed!', 'Response Body': + response.body });
+      } else {
+        logger.info({ message: 'Request successful', response });
+      }
+    });
+  }
 
   function schema () {
     // schema in cache; just return it as a instant promise
@@ -149,7 +167,6 @@ exports.kinesisHandler = function (records, context, callback) {
       })
     })
   }
-
 
   // oauth token retriever
   function token () {
@@ -188,7 +205,6 @@ exports.kinesisHandler = function (records, context, callback) {
     })
   }
 }
-
 
 // main function
 exports.handler = function (event, context, callback) {
