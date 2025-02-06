@@ -57,6 +57,8 @@ exports.kinesisHandler = function (records, context, callback) {
       logger.debug({'message': 'Update records array length' + updateRecordsArray.length })
       // if any MLN items, send them on to the MLN API
       if (updateRecordsArray.length != 0) {
+        
+        logger.info({ message: 'Request successful', updateRecordsArray });
         postRecords(updateRecordsArray, accessToken)
       }
 
@@ -75,7 +77,7 @@ exports.kinesisHandler = function (records, context, callback) {
     logger.info({'message': 'Parsing Kinesis'})
       // decode base64
     try {
-      var buf = new Buffer(payload.kinesis.data, 'base64')
+      var buf = new Buffer.from(payload.kinesis.data, 'base64')
         // decode avro
       var record = avroType.fromBuffer(buf)
 
@@ -107,7 +109,7 @@ exports.kinesisHandler = function (records, context, callback) {
         return;
       }
 
-      logger.info({ message: 'Response status: ' + response.statusCode + ' Response Body: ' + response.body });
+      logger.info({ message: 'Response status: ' + response.statusCode, 'Response Body': + response.body });
 
       if ([500, 401].includes(response.statusCode)) {
         if (retries < MAX_RETRIES) {
