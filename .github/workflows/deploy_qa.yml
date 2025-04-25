@@ -3,7 +3,7 @@ name: lambda-qa-deployment-with-github-action
 on:
   push:
     branches:
-        [qa]
+      - feature/github_actions
 
 jobs:
   lambda-deploy:
