@@ -25,6 +25,6 @@ jobs:
 
       - name: Deploy lambda function
         env:
-          AWS_ACCESS_KEY_ID_QA: ${{ secrets.AWS_ACCESS_KEY_ID_QA }}
-          AWS_SECRET_ACCESS_KEY_QA: ${{ secrets.AWS_SECRET_ACCESS_KEY_QA }}
+          AWS_ACCESS_KEY_ID_QA: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY_QA: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: npm run deploy-item-qa
