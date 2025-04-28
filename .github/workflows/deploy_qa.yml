@@ -20,8 +20,5 @@ jobs:
       - name: Install serverless globally
         run: npm install -g serverless
 
-      - name: Install npm dependencies
-        run: npm ci
-
       - name: Deploy lambda function
         run: npm run deploy-item-qa
