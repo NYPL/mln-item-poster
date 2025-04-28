@@ -21,4 +21,7 @@ jobs:
         run: npm install -g serverless
 
       - name: Deploy lambda function
+        env:
+          AWS_ACCESS_KEY_ID_QA: ${{ secrets.AWS_ACCESS_KEY_ID_QA }}
+          AWS_SECRET_ACCESS_KEY_QA: ${{ secrets.AWS_SECRET_ACCESS_KEY_QA }}
         run: npm run deploy-item-qa
