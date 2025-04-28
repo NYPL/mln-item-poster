@@ -17,8 +17,11 @@ jobs:
         with:
           node-version: '16'
 
-      - name: Install serverless globally
-        run: npm install -g serverless
+      - name: Install node
+        run: npm install
+
+      - name: Install lambda globally
+        run: npm install -g node-lambda
 
       - name: Deploy lambda function
         env:
