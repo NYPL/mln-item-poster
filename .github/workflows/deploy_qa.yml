@@ -22,11 +22,9 @@ jobs:
 
       - name: Install lambda globally
         run: npm install -g node-lambda
-        needs: [Install node]
 
       - name: Deploy lambda function
         env:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: npm run deploy-item-qa
-        needs: [Install lambda globally]
