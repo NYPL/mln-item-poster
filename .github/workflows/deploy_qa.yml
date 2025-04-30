@@ -23,6 +23,17 @@ jobs:
       - name: Install lambda globally
         run: npm install -g node-lambda
 
+      - name: Check if Github Secrets exist
+        run: |
+          if [ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ]; then
+            echo "Secret AWS_ACCESS_KEY_ID is not set"
+            exit 1  # Fail the workflow if the secret is not set
+          else if [ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ]; then
+            echo "Secret AWS_SECRET_ACCESS_KEY is not set"
+            exit 1  # Fail the workflow if the secret is not set
+            echo "AWS secrets exist"
+          fi
+
       - name: Deploy lambda function
         env:
           AWS_ACCESS_KEY_ID_QA: ${{ secrets.AWS_ACCESS_KEY_ID }}
