@@ -1,25 +1,25 @@
-language: node_js
-node_js:
-- '16'
-script: npm test
-install:
-- npm install
-deploy:
-- provider: script
-  skip_cleanup: true
-  script: npm run deploy-item-development
-  on:
-    branch: development
-- provider: script
-  skip_cleanup: true
-  script: npm run deploy-item-qa
-  on:
-    branch: qa
-- provider: script
-  skip_cleanup: true
-  script: npm run deploy-item-production
-  on:
-    branch: master
-env:
-  global:
-  - secure: Siq8QF8iMzNogROPAVJ1VbwiJwb0nUfMf6qqoz2Fg+Y3pCJW/0P+oGcAU8rgq2ryn1NMjWsIBpFmNHTSRByOJkoRSQrj11auj5Lr4Dr8tgtoq/RpRtlIvYw4+cZ25dbsqpCx0pbCQ1rQvGvvy3CpXx7wLBLT+XHD1AKR8PV5NpBqVoWOLG4kAI7ze7RxnccXNpzY20W4V8qJ4iQQFrWmHTbzL554EAXRwK6iHUxZb5pm0gVCluyZElKLy/c/W48XbLfdH+s1AHiYGItoq1mUMqntQUJQBw4pLxoLkkQ6F8Yox1uIURdfftsrUeymrQC287X0+J2u+VExmmmMzWfrIlqUnUy27OvtIQrhzKe4V2wxOyFXsJsfIszutg/z6v2Ozjd7/FSDdGfCmYQw9DnGO1MIQui+cQHgGn4vs8P9F2cF+zS9MqMExwRvhM495w7YX89kJSNWQ1uGDGzZpTEHTvXd4u+g+pq7RdT6fAgXSFpkCSMNa8643MWrRd57xE6tcqRLDFD6bzLGhuBvL4PSQjbCiBECXOnVTfKjHhRuEODG0YSppIQQPTmEnzct4VbNjk4Nh00gw6+Qr54hMxEFuHjgiPIy63w4qiq6DxDAArXrWDc4bmcwBl519bCEm4Xx1d5ovprPBSb+wDZD/3WUA0uEhrdQoomcOFnyiT6D6Dk=
+#language: node_js
+#node_js:
+#- '16'
+#script: npm test
+#install:
+#- npm install
+#deploy:
+#- provider: script
+#  skip_cleanup: true
+#  script: npm run deploy-item-development
+#  on:
+#    branch: development
+#- provider: script
+#  skip_cleanup: true
+#  script: npm run deploy-item-qa
+#  on:
+#    branch: qa
+#- provider: script
+#  skip_cleanup: true
+#  script: npm run deploy-item-production
+#  on:
+#    branch: master
+#env:
+#  global:
+#  - secure: Siq8QF8iMzNogROPAVJ1VbwiJwb0nUfMf6qqoz2Fg+Y3pCJW/0P+oGcAU8rgq2ryn1NMjWsIBpFmNHTSRByOJkoRSQrj11auj5Lr4Dr8tgtoq/RpRtlIvYw4+cZ25dbsqpCx0pbCQ1rQvGvvy3CpXx7wLBLT+XHD1AKR8PV5NpBqVoWOLG4kAI7ze7RxnccXNpzY20W4V8qJ4iQQFrWmHTbzL554EAXRwK6iHUxZb5pm0gVCluyZElKLy/c/W48XbLfdH+s1AHiYGItoq1mUMqntQUJQBw4pLxoLkkQ6F8Yox1uIURdfftsrUeymrQC287X0+J2u+VExmmmMzWfrIlqUnUy27OvtIQrhzKe4V2wxOyFXsJsfIszutg/z6v2Ozjd7/FSDdGfCmYQw9DnGO1MIQui+cQHgGn4vs8P9F2cF+zS9MqMExwRvhM495w7YX89kJSNWQ1uGDGzZpTEHTvXd4u+g+pq7RdT6fAgXSFpkCSMNa8643MWrRd57xE6tcqRLDFD6bzLGhuBvL4PSQjbCiBECXOnVTfKjHhRuEODG0YSppIQQPTmEnzct4VbNjk4Nh00gw6+Qr54hMxEFuHjgiPIy63w4qiq6DxDAArXrWDc4bmcwBl519bCEm4Xx1d5ovprPBSb+wDZD/3WUA0uEhrdQoomcOFnyiT6D6Dk=
