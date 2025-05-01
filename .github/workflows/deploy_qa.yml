@@ -1,0 +1,32 @@
+name: lambda-qa-deployment-with-github-action
+
+on:
+  push:
+    branches:
+      - feature/sub-branch-github_actions
+jobs:
+  deploy-qa:
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' }}
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::946183545209:role/GithubActionsDeployerRole
+          aws-region: us-east-1
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Package app
+        run: bash provisioning/package.sh
+      - uses: hashicorp/setup-terraform@v2
+      - name: Deploy app to QA
+        run: |
+          terraform -chdir=provisioning/qa init -input=false
+          terraform -chdir=provisioning/qa apply -auto-approve -input=false
+
