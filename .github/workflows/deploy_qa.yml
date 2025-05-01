@@ -3,43 +3,26 @@ name: lambda-qa-deployment-with-github-action
 on:
   push:
     branches:
-      - feature/github_actions
+      - feature/sub-branch-github_actions
 
 jobs:
-  lambda-deploy:
+  deploy-qa:
     runs-on: ubuntu-latest
+    permissions: 
+      id-token: write
+      contents: read
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' }}
     steps:
-      - name: Checkout to repo
-        uses: actions/checkout@v4
-
-      - name: Setup node environment
-        uses: actions/setup-node@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          node-version: '16'
-
-      - name: Install node
-        run: npm install
-
-      - name: Install lambda globally
-        run: npm install -g node-lambda
-
-      - name: Check if Github Secrets exist
-        env:
-          AWS_ACCESS_KEY_ID_QA: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY_QA: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::946183545209:role/GithubActionsDeployerRole
+          aws-region: us-east-1
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+      - name: npm install
+        run: npm ci
+      - name: Deploy app to QA
         run: |
-          if [ -z "$AWS_ACCESS_KEY_ID_QA" ]; then
-            echo "Secret AWS_ACCESS_KEY_ID is not set"
-            exit 1  # Fail the workflow if the secret is not set
-          elif [ -z "$AWS_SECRET_ACCESS_KEY_QA" ]; then
-            echo "Secret AWS_SECRET_ACCESS_KEY is not set"
-            exit 1  # Fail the workflow if the secret is not set
-          else
-            echo "AWS secrets exist"
-          fi
-
-      - name: Deploy lambda function
-        env:
-          AWS_ACCESS_KEY_ID_QA: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY_QA: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: npm run deploy-item-qa
+          terraform -chdir=provisioning/qa init -input=false
+          terraform -chdir=provisioning/qa apply -auto-approve -input=false
